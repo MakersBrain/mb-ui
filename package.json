@@ -1,0 +1,73 @@
+{
+	"name": "@makersbrain/brand",
+	"version": "0.1.0",
+	"description": "The MakersBrain visual identity: colour and type tokens, the component layer, the weave mark in every cut, and the Svelte components that render it.",
+	"license": "UNLICENSED",
+	"private": false,
+	"type": "module",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/MakersBrain/brand.git"
+	},
+	"homepage": "https://github.com/MakersBrain/brand#readme",
+	"bugs": {
+		"url": "https://github.com/MakersBrain/brand/issues"
+	},
+	"publishConfig": {
+		"registry": "https://npm.pkg.github.com"
+	},
+	"sideEffects": [
+		"*.css"
+	],
+	"svelte": "./src/svelte/index.js",
+	"types": "./src/marks.d.ts",
+	"exports": {
+		".": {
+			"types": "./src/marks.d.ts",
+			"default": "./src/marks.js"
+		},
+		"./tokens.css": "./src/tokens.css",
+		"./ui.css": "./src/ui.css",
+		"./svelte": {
+			"types": "./src/svelte/index.d.ts",
+			"svelte": "./src/svelte/index.js",
+			"default": "./src/svelte/index.js"
+		},
+		"./svelte/*.svelte": "./src/svelte/*.svelte",
+		"./logo/*": "./src/logo/*",
+		"./package.json": "./package.json"
+	},
+	"files": [
+		"src",
+		"README.md"
+	],
+	"scripts": {
+		"build": "python3 build/build-logo.py --skip-wordmark && python3 build/build-pages.py",
+		"build:logo": "python3 build/build-logo.py --skip-wordmark",
+		"build:pages": "python3 build/build-pages.py",
+		"check": "python3 build/build-logo.py --skip-wordmark --check --no-raster && svelte-check --threshold error",
+		"check:generated": "python3 build/build-logo.py --skip-wordmark --check --no-raster",
+		"check:types": "svelte-check --threshold error"
+	},
+	"peerDependencies": {
+		"svelte": "^5.0.0"
+	},
+	"peerDependenciesMeta": {
+		"svelte": {
+			"optional": true
+		}
+	},
+	"devDependencies": {
+		"svelte": "^5.56.1",
+		"svelte-check": "^4.6.0",
+		"typescript": "^5.9.3"
+	},
+	"engines": {
+		"node": ">=20"
+	},
+	"keywords": [
+		"makersbrain",
+		"design-tokens",
+		"brand"
+	]
+}

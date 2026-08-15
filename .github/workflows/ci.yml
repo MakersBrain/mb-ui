@@ -1,0 +1,70 @@
+name: CI
+
+# Two things can go wrong in a package whose whole job is to be one definition
+# of something: the generated assets stop matching the generator, and the
+# published tarball stops containing what a consumer imports. Both are checked
+# here, on every push, because both are invisible until a consumer hits them.
+#
+# Action versions are pinned to commit SHAs, matching MakersBrain/odoo. A
+# floating tag on a third-party action is a supply-chain hole in a repository
+# that publishes a package.
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  generated:
+    name: Generated assets match the generator
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38 # v5
+        with:
+          python-version: '3.12'
+      # --skip-wordmark because outlining it needs inkscape and the Bitter
+      # desktop font, neither of which belongs on a CI runner: the wordmark path
+      # is cached in src/logo/wordmark.svg and only changes when the wordmark
+      # itself does. --no-raster because inkscape's PNG output is not
+      # byte-reproducible across versions, so diffing it would fail on a patch
+      # release rather than on a real change.
+      - name: Regenerate and compare
+        run: python3 build/build-logo.py --skip-wordmark --check --no-raster
+
+  types:
+    name: Types and components
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@1d0ff469b7ec7b3cb9d8673fde0c81c44821de2a # v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm run check:types
+
+  packaging:
+    name: The tarball contains what the exports promise
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@1d0ff469b7ec7b3cb9d8673fde0c81c44821de2a # v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      # `files` and `exports` are two lists that have to agree and are edited
+      # separately, which is exactly the shape of mistake that ships a package
+      # whose documented entry point 404s on install.
+      - name: Every export target is in the packed tarball
+        run: node scripts/check-exports.mjs

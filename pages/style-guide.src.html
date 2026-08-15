@@ -1,0 +1,756 @@
+<title>MakersBrain Brand Foundation</title>
+<style>
+__FONT_CSS__
+
+/* ============ tokens (mirror of brand/tokens.css) ============ */
+:root {
+  --clay-50:#FDF1EC; --clay-100:#F9DFD4; --clay-200:#F0BFAB; --clay-300:#E39C80;
+  --clay-400:#D27C5C; --clay-500:#C05F3D; --clay-600:#A34A2C; --clay-700:#833A23;
+  --clay-800:#612B1A; --clay-900:#401C11;
+  --kiln-100:#FCEACC; --kiln-300:#F5C877; --kiln-500:#E09A2E; --kiln-700:#A76C12;
+  --sage-100:#DFEBE1; --sage-300:#93B99C; --sage-500:#2F6E56; --sage-700:#24583F;
+  --slate-100:#DCE7EF; --slate-500:#3B6584; --slate-700:#2A4A63;
+  --sand-0:#FFFFFF; --sand-50:#FBF8F6; --sand-100:#F4EFEB; --sand-200:#E9E1DB;
+  --sand-300:#D6CAC1; --sand-400:#B2A398; --sand-500:#877669; --sand-600:#64564C;
+  --sand-700:#493E36; --sand-800:#2F2822; --sand-900:#1E1915; --sand-950:#130F0D;
+
+  --bg:#F7F3EE; --surface:#FFFFFF; --surface-2:#FBF8F6; --sunken:#F0E9E3;
+  --line:#E5DCD5; --line-strong:#948274;
+  --text:#1E1915; --muted:#64564C; --subtle:#7A6A5D; --on-accent:#FFFFFF;
+  --brand:#C05F3D; --accent:#A34A2C; --accent-hover:#833A23; --accent-text:#A34A2C;
+  --accent-tint:#FDF1EC; --accent-border:#F0BFAB;
+  --success:#2F6E56; --success-tint:#DFEBE1;
+  --warning:#96600D; --warning-tint:#FCEACC;
+  --danger:#B03A2B;  --danger-tint:#FBE4E0;
+  --info:#3B6584;    --info-tint:#DCE7EF;
+  --focus:#C05F3D;
+  --shadow-sm:0 1px 2px rgba(30,25,21,.06);
+  --shadow-md:0 1px 2px rgba(30,25,21,.05),0 6px 16px rgba(30,25,21,.06);
+  --shadow-lg:0 2px 4px rgba(30,25,21,.05),0 16px 40px rgba(30,25,21,.10);
+
+  --f-display:"Bitter",Georgia,serif;
+  --f-ui:"IBM Plex Sans",ui-sans-serif,system-ui,sans-serif;
+  --f-mono:"JetBrains Mono","IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:#130F0D; --surface:#1E1915; --surface-2:#2A231E; --sunken:#0D0A09;
+    --line:#3A302A; --line-strong:#736558;
+    --text:#F4EFEB; --muted:#B2A398; --subtle:#877669; --on-accent:#130F0D;
+    --brand:#D27C5C; --accent:#D27C5C; --accent-hover:#E39C80; --accent-text:#E39C80;
+    --accent-tint:#2E1D15; --accent-border:#5A3121;
+    --success:#6FA98A; --success-tint:#17251E;
+    --warning:#E09A2E; --warning-tint:#2A1E0C;
+    --danger:#E08575;  --danger-tint:#2C1614;
+    --info:#7EA8C4;    --info-tint:#142028;
+    --focus:#E39C80;
+    --shadow-sm:0 1px 2px rgba(0,0,0,.4);
+    --shadow-md:0 1px 2px rgba(0,0,0,.35),0 6px 16px rgba(0,0,0,.4);
+    --shadow-lg:0 2px 4px rgba(0,0,0,.35),0 16px 40px rgba(0,0,0,.5);
+  }
+}
+:root[data-theme="dark"] {
+  --bg:#130F0D; --surface:#1E1915; --surface-2:#2A231E; --sunken:#0D0A09;
+  --line:#3A302A; --line-strong:#736558;
+  --text:#F4EFEB; --muted:#B2A398; --subtle:#877669; --on-accent:#130F0D;
+  --brand:#D27C5C; --accent:#D27C5C; --accent-hover:#E39C80; --accent-text:#E39C80;
+  --accent-tint:#2E1D15; --accent-border:#5A3121;
+  --success:#6FA98A; --success-tint:#17251E;
+  --warning:#E09A2E; --warning-tint:#2A1E0C;
+  --danger:#E08575;  --danger-tint:#2C1614;
+  --info:#7EA8C4;    --info-tint:#142028;
+  --focus:#E39C80;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.4);
+  --shadow-md:0 1px 2px rgba(0,0,0,.35),0 6px 16px rgba(0,0,0,.4);
+  --shadow-lg:0 2px 4px rgba(0,0,0,.35),0 16px 40px rgba(0,0,0,.5);
+}
+
+/* ============ base ============ */
+* { box-sizing:border-box; }
+body {
+  margin:0; background:var(--bg); color:var(--text);
+  font-family:var(--f-ui); font-size:15px; line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4 { font-family:var(--f-display); font-weight:600; margin:0; text-wrap:balance; letter-spacing:-.015em; }
+p { margin:0; }
+a { color:var(--accent-text); text-underline-offset:3px; text-decoration-thickness:1px; }
+:focus-visible { outline:2px solid var(--focus); outline-offset:2px; border-radius:2px; }
+code, .mono { font-family:var(--f-mono); font-size:.86em; }
+.tnum { font-variant-numeric:tabular-nums; }
+
+/* ============ shell ============ */
+.shell { max-width:78rem; margin:0 auto; padding:0 1.5rem 6rem; }
+.layout { display:grid; grid-template-columns:13rem minmax(0,1fr); gap:3.5rem; align-items:start; }
+@media (max-width:940px){ .layout{ grid-template-columns:minmax(0,1fr); gap:0; } }
+
+.rail { position:sticky; top:2rem; display:flex; flex-direction:column; gap:.1rem; padding-top:.5rem; }
+@media (max-width:940px){ .rail{ position:static; flex-flow:row wrap; gap:.35rem; margin-bottom:2.5rem; padding-bottom:1.5rem; border-bottom:1px solid var(--line);} }
+.rail a {
+  font-size:.8125rem; color:var(--muted); text-decoration:none;
+  padding:.35rem .6rem; border-radius:.375rem; border-left:2px solid transparent;
+}
+@media (max-width:940px){ .rail a{ border-left:0; background:var(--surface); border:1px solid var(--line);} }
+.rail a:hover { color:var(--text); background:var(--surface); }
+.rail-title { font-size:.6875rem; text-transform:uppercase; letter-spacing:.08em; color:var(--subtle); font-weight:600; padding:.35rem .6rem .5rem; }
+
+/* ============ masthead ============ */
+.masthead { padding:4rem 0 2.5rem; display:flex; flex-wrap:wrap; gap:2rem; align-items:flex-end; justify-content:space-between; border-bottom:1px solid var(--line); margin-bottom:3.5rem; }
+.masthead-copy { max-width:34rem; display:flex; flex-direction:column; gap:.85rem; }
+.masthead h1 { font-size:2.75rem; line-height:1.08; }
+.masthead p { color:var(--muted); font-size:1.0625rem; }
+.meta-row { display:flex; flex-wrap:wrap; gap:.4rem 1.25rem; font-size:.8125rem; color:var(--subtle); }
+
+.lockup { display:inline-flex; align-items:center; gap:.6em; font-family:var(--f-display); font-weight:600; letter-spacing:-.02em; line-height:1; color:var(--text); }
+.lockup svg { width:1.15em; height:1.15em; flex:none; color:var(--text); }
+.lockup .b { color:var(--brand); }
+
+.themer { display:inline-flex; border:1px solid var(--line-strong); border-radius:.5rem; overflow:hidden; }
+.themer button { font:inherit; font-size:.75rem; font-weight:500; padding:.4rem .7rem; border:0; background:var(--surface); color:var(--muted); cursor:pointer; }
+.themer button + button { border-left:1px solid var(--line); }
+.themer button[aria-pressed="true"] { background:var(--accent); color:var(--on-accent); }
+
+/* ============ sections ============ */
+.sec { padding-top:1rem; margin-bottom:4.5rem; scroll-margin-top:1.5rem; }
+.sec-head { display:flex; flex-wrap:wrap; align-items:baseline; gap:.4rem 1rem; padding-bottom:.75rem; margin-bottom:1.75rem; border-bottom:1px solid var(--line); }
+.sec-head h2 { font-size:1.5rem; }
+.sec-head .note { font-size:.8125rem; color:var(--subtle); margin-left:auto; }
+.lede { max-width:62ch; color:var(--muted); margin-bottom:2rem; font-size:1rem; }
+.eyebrow { font-size:.6875rem; text-transform:uppercase; letter-spacing:.08em; font-weight:600; color:var(--accent-text); }
+
+/* ============ mark cards ============ */
+.marks { display:grid; grid-template-columns:repeat(auto-fit,minmax(15.5rem,1fr)); gap:1.25rem; }
+.mark-card { background:var(--surface); border:1px solid var(--line); border-radius:.75rem; overflow:hidden; display:flex; flex-direction:column; box-shadow:var(--shadow-sm); }
+.mark-stage { display:grid; grid-template-columns:1fr 1fr; }
+.stage-light { background:#F7F3EE; color:#1E1915; }
+.stage-dark  { background:#130F0D; color:#F4EFEB; }
+.stage-light, .stage-dark { display:grid; place-items:center; padding:2rem 1rem; }
+.mark-stage svg { width:76px; height:76px; }
+.mark-sizes { display:flex; align-items:center; gap:1.1rem; padding:.85rem 1.1rem; border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--surface-2); color:var(--text); }
+.mark-sizes svg { flex:none; }
+.mark-sizes .s32 { width:32px; height:32px; }
+.mark-sizes .s20 { width:20px; height:20px; }
+.mark-sizes .s16 { width:16px; height:16px; }
+.mark-sizes .cap { font-size:.6875rem; color:var(--subtle); margin-left:auto; text-transform:uppercase; letter-spacing:.06em; }
+.mark-body { padding:1.1rem 1.15rem 1.25rem; display:flex; flex-direction:column; gap:.55rem; flex:1; }
+.mark-body h3 { font-size:1.0625rem; }
+.mark-body .kind { font-size:.6875rem; text-transform:uppercase; letter-spacing:.07em; color:var(--subtle); font-weight:600; }
+.mark-body p { font-size:.875rem; color:var(--muted); }
+.verdict { margin-top:auto; padding-top:.75rem; border-top:1px dashed var(--line); font-size:.8125rem; display:flex; gap:.5rem; align-items:flex-start; }
+.verdict b { font-weight:600; color:var(--text); flex:none; }
+
+/* ============ lockups ============ */
+.lock-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(16rem,1fr)); gap:1.25rem; }
+.lock-cell { background:var(--surface); border:1px solid var(--line); border-radius:.75rem; padding:2rem 1.5rem 1.1rem; display:flex; flex-direction:column; align-items:center; gap:1.75rem; min-height:11rem; justify-content:space-between; }
+.lock-cell .cap { font-size:.75rem; color:var(--subtle); text-align:center; }
+.lock-stack { display:flex; flex-direction:column; align-items:center; gap:.5rem; font-family:var(--f-display); font-weight:600; letter-spacing:-.02em; }
+.lock-stack svg { width:44px; height:44px; color:var(--text); }
+.clearspace { position:relative; padding:1.5rem; }
+.clearspace .box { position:absolute; inset:0; border:1px dashed var(--accent-border); border-radius:.25rem; }
+
+/* ============ colour ============ */
+.ramp { display:flex; flex-direction:column; gap:.4rem; margin-bottom:1.5rem; }
+.ramp-head { display:flex; align-items:baseline; gap:.6rem; }
+.ramp-head b { font-size:.875rem; font-weight:600; }
+.ramp-head span { font-size:.8125rem; color:var(--subtle); }
+.ramp-swatches { display:grid; grid-template-columns:repeat(auto-fit,minmax(4.5rem,1fr)); gap:.3rem; }
+.sw { border-radius:.375rem; padding:.55rem .5rem .5rem; min-height:4rem; display:flex; flex-direction:column; justify-content:flex-end; gap:.1rem; border:1px solid rgba(30,25,21,.08); }
+.sw b { font-size:.6875rem; font-weight:600; }
+.sw span { font-size:.625rem; opacity:.75; font-family:var(--f-mono); }
+
+.tbl-wrap { overflow-x:auto; border:1px solid var(--line); border-radius:.75rem; background:var(--surface); }
+table { width:100%; border-collapse:collapse; font-size:.8125rem; }
+th, td { text-align:left; padding:.6rem .85rem; border-bottom:1px solid var(--line); vertical-align:middle; white-space:nowrap; }
+th { font-size:.6875rem; text-transform:uppercase; letter-spacing:.07em; color:var(--subtle); font-weight:600; background:var(--surface-2); }
+tbody tr:last-child td { border-bottom:0; }
+td.num { font-variant-numeric:tabular-nums; }
+.dot { display:inline-block; width:.85rem; height:.85rem; border-radius:.2rem; vertical-align:-.15em; margin-right:.45rem; border:1px solid rgba(30,25,21,.12); }
+.pass { color:var(--success); font-weight:600; }
+.pass-l { color:var(--warning); font-weight:600; }
+
+/* ============ type ============ */
+.spec { display:flex; flex-direction:column; gap:.15rem; padding:1.1rem 0; border-bottom:1px solid var(--line); }
+.spec:last-child { border-bottom:0; }
+.spec-label { font-size:.6875rem; color:var(--subtle); font-family:var(--f-mono); }
+.spec-sample { color:var(--text); }
+.d-xl { font-family:var(--f-display); font-weight:600; font-size:3.5rem; line-height:1.06; letter-spacing:-.025em; }
+.d-l  { font-family:var(--f-display); font-weight:600; font-size:2.75rem; line-height:1.08; letter-spacing:-.02em; }
+.d-h1 { font-family:var(--f-display); font-weight:600; font-size:2.25rem; line-height:1.12; letter-spacing:-.018em; }
+.d-h2 { font-family:var(--f-display); font-weight:600; font-size:1.75rem; line-height:1.2; }
+.d-h3 { font-family:var(--f-display); font-weight:600; font-size:1.375rem; line-height:1.3; }
+.u-lg { font-size:1.0625rem; line-height:1.6; }
+.u-b  { font-size:.9375rem; line-height:1.55; }
+.u-s  { font-size:.8125rem; line-height:1.5; }
+.u-m  { font-size:.6875rem; text-transform:uppercase; letter-spacing:.08em; font-weight:600; }
+.m-b  { font-family:var(--f-mono); font-size:.875rem; }
+.pairing { display:grid; grid-template-columns:repeat(auto-fit,minmax(17rem,1fr)); gap:1.25rem; margin-bottom:2rem; }
+.pair-card { background:var(--surface); border:1px solid var(--line); border-radius:.75rem; padding:1.25rem; display:flex; flex-direction:column; gap:.5rem; }
+.pair-card .big { font-size:2.25rem; line-height:1.1; overflow-wrap:anywhere; }
+.pair-card p { font-size:.8125rem; color:var(--muted); }
+
+/* ============ components ============ */
+.kit { display:grid; grid-template-columns:repeat(auto-fit,minmax(17rem,1fr)); gap:1.25rem; }
+.panel { background:var(--surface); border:1px solid var(--line); border-radius:.75rem; padding:1.25rem; display:flex; flex-direction:column; gap:1rem; }
+.panel > h4 { font-size:.6875rem; text-transform:uppercase; letter-spacing:.08em; color:var(--subtle); font-family:var(--f-ui); font-weight:600; }
+.row { display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; }
+.btn { font:inherit; font-size:.875rem; font-weight:500; padding:.5rem .9rem; border-radius:.5rem; border:1px solid transparent; cursor:pointer; background:var(--accent); color:var(--on-accent); }
+.btn:hover { background:var(--accent-hover); }
+.btn.outline { background:var(--surface); color:var(--text); border-color:var(--line-strong); }
+.btn.outline:hover { background:var(--surface-2); }
+.btn.quiet { background:transparent; color:var(--muted); }
+.btn.quiet:hover { background:var(--surface-2); color:var(--text); }
+.btn.dgr { background:var(--danger); color:var(--on-accent); }
+.btn:disabled { opacity:.45; cursor:not-allowed; }
+.field { display:flex; flex-direction:column; gap:.3rem; }
+.field label { font-size:.75rem; font-weight:600; color:var(--muted); }
+.field input, .field select { font:inherit; font-size:.875rem; padding:.5rem .6rem; border-radius:.5rem; border:1px solid var(--line-strong); background:var(--surface); color:var(--text); width:100%; }
+.field .hint { font-size:.75rem; color:var(--subtle); }
+.badge { display:inline-flex; align-items:center; gap:.35rem; font-size:.75rem; font-weight:600; padding:.2rem .5rem; border-radius:.375rem; background:var(--sunken); color:var(--muted); }
+.badge .pip { width:.4rem; height:.4rem; border-radius:50%; background:currentColor; }
+.badge.ok { background:var(--success-tint); color:var(--success); }
+.badge.wa { background:var(--warning-tint); color:var(--warning); }
+.badge.da { background:var(--danger-tint); color:var(--danger); }
+.badge.in { background:var(--info-tint); color:var(--info); }
+.badge.ac { background:var(--accent-tint); color:var(--accent-text); }
+.callout { border-left:3px solid var(--accent); background:var(--accent-tint); padding:.75rem .9rem; border-radius:0 .5rem .5rem 0; font-size:.875rem; color:var(--text); }
+
+/* ============ in-situ mocks ============ */
+.situ { display:grid; grid-template-columns:repeat(auto-fit,minmax(20rem,1fr)); gap:1.5rem; }
+.mock { border:1px solid var(--line); border-radius:.75rem; overflow:hidden; background:var(--surface); box-shadow:var(--shadow-md); display:flex; flex-direction:column; }
+.mock-cap { margin-top:auto; font-size:.75rem; color:var(--subtle); padding:.6rem .9rem; border-top:1px solid var(--line); background:var(--surface-2); }
+.mock-bar { display:flex; align-items:center; gap:1rem; padding:.7rem .95rem; border-bottom:1px solid var(--line); background:var(--surface-2); }
+.mock-bar .lockup { font-size:.9375rem; }
+.mock-nav { display:flex; gap:.85rem; font-size:.75rem; color:var(--muted); margin-left:.5rem; }
+.mock-nav .on { color:var(--text); font-weight:600; box-shadow:inset 0 -2px 0 var(--accent); padding-bottom:.15rem; }
+.mock-body { padding:1.1rem .95rem 1.25rem; display:flex; flex-direction:column; gap:.9rem; }
+.stat-row { display:grid; grid-template-columns:repeat(3,1fr); gap:.6rem; }
+.stat { background:var(--surface-2); border:1px solid var(--line); border-radius:.5rem; padding:.6rem .7rem; display:flex; flex-direction:column; gap:.15rem; }
+.stat .k { font-size:.625rem; text-transform:uppercase; letter-spacing:.07em; color:var(--subtle); font-weight:600; }
+.stat .v { font-family:var(--f-display); font-weight:600; font-size:1.375rem; line-height:1.1; font-variant-numeric:tabular-nums; }
+.stat .d { font-size:.6875rem; color:var(--muted); }
+.mini { width:100%; border-collapse:collapse; font-size:.75rem; }
+.mini th, .mini td { padding:.42rem .5rem; border-bottom:1px solid var(--line); }
+.mini tbody tr:last-child td { border-bottom:0; }
+
+.hero-mock { padding:2.25rem 1.5rem 2rem; background:var(--sunken); display:flex; flex-direction:column; gap:.9rem; align-items:flex-start; }
+.hero-mock h3 { font-size:1.875rem; line-height:1.12; letter-spacing:-.02em; max-width:16ch; }
+.hero-mock p { font-size:.9375rem; color:var(--muted); max-width:38ch; }
+.hero-mock .row { margin-top:.35rem; }
+
+/* ============ rollout ============ */
+.steps { display:flex; flex-direction:column; gap:0; }
+.step { display:grid; grid-template-columns:auto minmax(0,1fr); gap:1.1rem; padding:1.1rem 0; border-bottom:1px solid var(--line); }
+.step:last-child { border-bottom:0; }
+.step-mark { width:2rem; height:2rem; border-radius:.5rem; display:grid; place-items:center; background:var(--accent-tint); color:var(--accent-text); font-family:var(--f-mono); font-size:.75rem; font-weight:700; border:1px solid var(--accent-border); }
+.step h4 { font-size:1rem; margin-bottom:.2rem; }
+.step p { font-size:.875rem; color:var(--muted); }
+.step .files { font-family:var(--f-mono); font-size:.75rem; color:var(--subtle); margin-top:.3rem; }
+
+@media (prefers-reduced-motion: reduce) { * { transition:none !important; animation:none !important; } }
+</style>
+
+<div class="shell">
+
+<header class="masthead">
+  <div class="masthead-copy">
+    <span class="eyebrow">Brand foundation &middot; decision record</span>
+    <h1>MakersBrain</h1>
+    <p>Five candidate marks, a colour system built for dense ERP screens, and a type pairing that does not sound like every other SaaS. Pick a mark and the rest becomes real.</p>
+    <div class="meta-row">
+      <span>makersbrain.app</span>
+      <span>Odoo 19 &middot; SvelteKit control plane</span>
+      <span>Warm craft-modern &middot; artisans broadly</span>
+    </div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:1rem;align-items:flex-end;">
+    <span class="lockup" style="font-size:1.5rem;">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M3 3h26v6H9v20H3Z" fill="currentColor"/><path d="M29 29H3v-6h20V3h6Z" fill="var(--brand)"/><path d="M23 3h6v6h-6Z" fill="currentColor"/></svg>
+      MakersBrain
+    </span>
+    <div class="themer" role="group" aria-label="Preview theme">
+      <button type="button" data-set="light" aria-pressed="false">Light</button>
+      <button type="button" data-set="dark" aria-pressed="false">Dark</button>
+      <button type="button" data-set="system" aria-pressed="true">System</button>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="rail" aria-label="Sections">
+    <span class="rail-title">Contents</span>
+    <a href="#marks">Candidate marks</a>
+    <a href="#lockups">Lockups</a>
+    <a href="#colour">Colour</a>
+    <a href="#type">Typography</a>
+    <a href="#kit">Components</a>
+    <a href="#situ">In situ</a>
+    <a href="#rollout">Rollout</a>
+  </nav>
+
+  <main>
+
+  <!-- ============ MARKS ============ -->
+  <section class="sec" id="marks">
+    <div class="sec-head">
+      <h2>Candidate marks</h2>
+      <span class="note">Each shown on paper and on ink, then at 32 / 20 / 16 px and in single colour</span>
+    </div>
+    <p class="lede">All five survived a favicon test and a monochrome test; the ones that did not are not here. The two <em>M</em> letterforms give the strongest name recall, the chop and the weave give the strongest standalone symbol, and the kiln gives the most warmth at the cost of naming one craft.</p>
+
+    <div class="marks">
+
+      <article class="mark-card">
+        <div class="mark-stage">
+          <div class="stage-light"><svg viewBox="0 0 32 32" aria-label="Chop mark on paper"><path fill="#C05F3D" fill-rule="evenodd" d="M12 3h15.5A1.5 1.5 0 0 1 29 4.5V22a7 7 0 0 1-7 7H6a3 3 0 0 1-3-3V12a9 9 0 0 1 9-9Zm-3 19V10l7 7.5L23 10v12h-3v-6.2l-4 4.3-4-4.3V22Z"/></svg></div>
+          <div class="stage-dark"><svg viewBox="0 0 32 32" aria-label="Chop mark on ink"><path fill="#D27C5C" fill-rule="evenodd" d="M12 3h15.5A1.5 1.5 0 0 1 29 4.5V22a7 7 0 0 1-7 7H6a3 3 0 0 1-3-3V12a9 9 0 0 1 9-9Zm-3 19V10l7 7.5L23 10v12h-3v-6.2l-4 4.3-4-4.3V22Z"/></svg></div>
+        </div>
+        <div class="mark-sizes">
+          <svg class="s32" viewBox="0 0 32 32" aria-hidden="true"><path fill="var(--brand)" fill-rule="evenodd" d="M12 3h15.5A1.5 1.5 0 0 1 29 4.5V22a7 7 0 0 1-7 7H6a3 3 0 0 1-3-3V12a9 9 0 0 1 9-9Zm-3 19V10l7 7.5L23 10v12h-3v-6.2l-4 4.3-4-4.3V22Z"/></svg>
+          <svg class="s20" viewBox="0 0 32 32" aria-hidden="true"><path fill="var(--brand)" fill-rule="evenodd" d="M12 3h15.5A1.5 1.5 0 0 1 29 4.5V22a7 7 0 0 1-7 7H6a3 3 0 0 1-3-3V12a9 9 0 0 1 9-9Zm-3 19V10l7 7.5L23 10v12h-3v-6.2l-4 4.3-4-4.3V22Z"/></svg>
+          <svg class="s16" viewBox="0 0 32 32" aria-hidden="true"><path fill="var(--brand)" fill-rule="evenodd" d="M12 3h15.5A1.5 1.5 0 0 1 29 4.5V22a7 7 0 0 1-7 7H6a3 3 0 0 1-3-3V12a9 9 0 0 1 9-9Zm-3 19V10l7 7.5L23 10v12h-3v-6.2l-4 4.3-4-4.3V22Z"/></svg>
+          <svg class="s32" viewBox="0 0 32 32" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M12 3h15.5A1.5 1.5 0 0 1 29 4.5V22a7 7 0 0 1-7 7H6a3 3 0 0 1-3-3V12a9 9 0 0 1 9-9Zm-3 19V10l7 7.5L23 10v12h-3v-6.2l-4 4.3-4-4.3V22Z"/></svg>
+          <span class="cap">1 colour</span>
+        </div>
+        <div class="mark-body">
+          <span class="kind">Contained letterform</span>
+          <h3>The chop</h3>
+          <p>The maker's stamp pressed into the base of finished work &mdash; the one object every craft shares, and literally a <em>mark</em>. Corner radii are deliberately unequal, so it reads hand-cut rather than app-icon.</p>
+          <div class="verdict"><b>Trade</b><span>Strongest as a favicon and an avatar; weakest as a standalone symbol, because the container does most of the work.</span></div>
+        </div>
+      </article>
+
+      <article class="mark-card">
+        <div class="mark-stage">
+          <div class="stage-light"><svg viewBox="0 0 32 32" aria-label="Weave mark on paper"><path d="M3 3h26v6H9v20H3Z" fill="#1E1915"/><path d="M29 29H3v-6h20V3h6Z" fill="#C05F3D"/><path d="M23 3h6v6h-6Z" fill="#1E1915"/></svg></div>
+          <div class="stage-dark"><svg viewBox="0 0 32 32" aria-label="Weave mark on ink"><path d="M3 3h26v6H9v20H3Z" fill="#F4EFEB"/><path d="M29 29H3v-6h20V3h6Z" fill="#D27C5C"/><path d="M23 3h6v6h-6Z" fill="#F4EFEB"/></svg></div>
+        </div>
+        <div class="mark-sizes">
+          <svg class="s32" viewBox="0 0 32 32" aria-hidden="true"><path d="M3 3h26v6H9v20H3Z" fill="currentColor"/><path d="M29 29H3v-6h20V3h6Z" fill="var(--brand)"/><path d="M23 3h6v6h-6Z" fill="currentColor"/></svg>
+          <svg class="s20" viewBox="0 0 32 32" aria-hidden="true"><path d="M3 3h26v6H9v20H3Z" fill="currentColor"/><path d="M29 29H3v-6h20V3h6Z" fill="var(--brand)"/><path d="M23 3h6v6h-6Z" fill="currentColor"/></svg>
+          <svg class="s16" viewBox="0 0 32 32" aria-hidden="true"><path d="M3 3h26v6H9v20H3Z" fill="currentColor"/><path d="M29 29H3v-6h20V3h6Z" fill="var(--brand)"/><path d="M23 3h6v6h-6Z" fill="currentColor"/></svg>
+          <svg class="s32" viewBox="0 0 32 32" aria-hidden="true"><path d="M3 3h26v6H9v20H3Z" fill="currentColor"/><path d="M29 29H3v-6h20V3h6Z" fill="currentColor"/></svg>
+          <span class="cap">1 colour</span>
+        </div>
+        <div class="mark-body">
+          <span class="kind">Abstract geometric</span>
+          <h3>The weave</h3>
+          <p>Two strands crossing over and under. It is a half-lap joint to a woodworker, a warp and weft to a weaver, and a coil to a basket maker &mdash; one geometry that does not pick a craft.</p>
+          <div class="verdict"><b>Trade</b><span>The only candidate that says something about the software as well as the workshop: two things fitting together. Reads as a frame at a glance; the over-under needs a beat to land.</span></div>
+        </div>
+      </article>
+
+      <article class="mark-card">
+        <div class="mark-stage">
+          <div class="stage-light"><svg viewBox="0 0 32 32" fill="none" stroke-width="4.4" stroke-linejoin="miter" aria-label="Trestle M on paper"><path d="m6 7 10 11L26 7" stroke="#1E1915" stroke-linecap="butt"/><path d="M6 25V7M26 7v18" stroke="#C05F3D" stroke-linecap="square"/></svg></div>
+          <div class="stage-dark"><svg viewBox="0 0 32 32" fill="none" stroke-width="4.4" stroke-linejoin="miter" aria-label="Trestle M on ink"><path d="m6 7 10 11L26 7" stroke="#F4EFEB" stroke-linecap="butt"/><path d="M6 25V7M26 7v18" stroke="#D27C5C" stroke-linecap="square"/></svg></div>
+        </div>
+        <div class="mark-sizes">
+          <svg class="s32" viewBox="0 0 32 32" fill="none" stroke-width="4.4" stroke-linejoin="miter" aria-hidden="true"><path d="m6 7 10 11L26 7" stroke="currentColor" stroke-linecap="butt"/><path d="M6 25V7M26 7v18" stroke="var(--brand)" stroke-linecap="square"/></svg>
+          <svg class="s20" viewBox="0 0 32 32" fill="none" stroke-width="4.4" stroke-linejoin="miter" aria-hidden="true"><path d="m6 7 10 11L26 7" stroke="currentColor" stroke-linecap="butt"/><path d="M6 25V7M26 7v18" stroke="var(--brand)" stroke-linecap="square"/></svg>
+          <svg class="s16" viewBox="0 0 32 32" fill="none" stroke-width="4.4" stroke-linejoin="miter" aria-hidden="true"><path d="m6 7 10 11L26 7" stroke="currentColor" stroke-linecap="butt"/><path d="M6 25V7M26 7v18" stroke="var(--brand)" stroke-linecap="square"/></svg>
+          <svg class="s32" viewBox="0 0 32 32" fill="none" stroke-width="4.4" stroke-linejoin="miter" aria-hidden="true"><path d="m6 7 10 11L26 7" stroke="currentColor" stroke-linecap="butt"/><path d="M6 25V7M26 7v18" stroke="currentColor" stroke-linecap="square"/></svg>
+          <span class="cap">1 colour</span>
+        </div>
+        <div class="mark-body">
+          <span class="kind">Letterform &plus; metaphor</span>
+          <h3>The trestle M</h3>
+          <p>An M built as a workbench: two clay posts with a dark brace let into them. The brace passes behind the posts rather than meeting them, which is how the joint would actually be cut.</p>
+          <div class="verdict"><b>Trade</b><span>Best name recall of the set and unmistakable at 16&nbsp;px. An M in two colours is also the most crowded space in software branding.</span></div>
+        </div>
+      </article>
+
+      <article class="mark-card">
+        <div class="mark-stage">
+          <div class="stage-light"><svg viewBox="0 0 32 32" aria-label="Folded M on paper"><path d="M4 27V7l12 13v2l-6-6v11Z" fill="#1E1915"/><path d="M28 27V7L16 20v2l6-6v11Z" fill="#C05F3D"/></svg></div>
+          <div class="stage-dark"><svg viewBox="0 0 32 32" aria-label="Folded M on ink"><path d="M4 27V7l12 13v2l-6-6v11Z" fill="#F4EFEB"/><path d="M28 27V7L16 20v2l6-6v11Z" fill="#D27C5C"/></svg></div>
+        </div>
+        <div class="mark-sizes">
+          <svg class="s32" viewBox="0 0 32 32" aria-hidden="true"><path d="M4 27V7l12 13v2l-6-6v11Z" fill="currentColor"/><path d="M28 27V7L16 20v2l6-6v11Z" fill="var(--brand)"/></svg>
+          <svg class="s20" viewBox="0 0 32 32" aria-hidden="true"><path d="M4 27V7l12 13v2l-6-6v11Z" fill="currentColor"/><path d="M28 27V7L16 20v2l6-6v11Z" fill="var(--brand)"/></svg>
+          <svg class="s16" viewBox="0 0 32 32" aria-hidden="true"><path d="M4 27V7l12 13v2l-6-6v11Z" fill="currentColor"/><path d="M28 27V7L16 20v2l6-6v11Z" fill="var(--brand)"/></svg>
+          <svg class="s32" viewBox="0 0 32 32" aria-hidden="true"><path d="M4 27V7l12 13v2l-6-6v11Z" fill="currentColor"/><path d="M28 27V7L16 20v2l6-6v11Z" fill="currentColor"/></svg>
+          <span class="cap">1 colour</span>
+        </div>
+        <div class="mark-body">
+          <span class="kind">Letterform</span>
+          <h3>The folded M</h3>
+          <p>One sheet creased down the middle, the two halves catching different light. Solid rather than stroked, so it holds its weight beside a heavy slab wordmark.</p>
+          <div class="verdict"><b>Trade</b><span>The most confident silhouette here and the cheapest to keep coherent. Also the least it says: without the colour split it is just an M.</span></div>
+        </div>
+      </article>
+
+      <article class="mark-card">
+        <div class="mark-stage">
+          <div class="stage-light"><svg viewBox="0 0 32 32" fill="none" aria-label="Kiln mark on paper"><path d="M5 28V16a11 11 0 0 1 22 0v12" stroke="#1E1915" stroke-width="4" stroke-linecap="butt"/><rect x="13" y="12.5" width="6" height="5" rx="1.5" fill="#C05F3D"/><rect x="11" y="20" width="10" height="5.5" rx="1.5" fill="#C05F3D"/></svg></div>
+          <div class="stage-dark"><svg viewBox="0 0 32 32" fill="none" aria-label="Kiln mark on ink"><path d="M5 28V16a11 11 0 0 1 22 0v12" stroke="#F4EFEB" stroke-width="4" stroke-linecap="butt"/><rect x="13" y="12.5" width="6" height="5" rx="1.5" fill="#D27C5C"/><rect x="11" y="20" width="10" height="5.5" rx="1.5" fill="#D27C5C"/></svg></div>
+        </div>
+        <div class="mark-sizes">
+          <svg class="s32" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M5 28V16a11 11 0 0 1 22 0v12" stroke="currentColor" stroke-width="4" stroke-linecap="butt"/><rect x="13" y="12.5" width="6" height="5" rx="1.5" fill="var(--brand)"/><rect x="11" y="20" width="10" height="5.5" rx="1.5" fill="var(--brand)"/></svg>
+          <svg class="s20" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M5 28V16a11 11 0 0 1 22 0v12" stroke="currentColor" stroke-width="4" stroke-linecap="butt"/><rect x="13" y="12.5" width="6" height="5" rx="1.5" fill="var(--brand)"/><rect x="11" y="20" width="10" height="5.5" rx="1.5" fill="var(--brand)"/></svg>
+          <svg class="s16" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M5 28V16a11 11 0 0 1 22 0v12" stroke="currentColor" stroke-width="4" stroke-linecap="butt"/><rect x="13" y="12.5" width="6" height="5" rx="1.5" fill="var(--brand)"/><rect x="11" y="20" width="10" height="5.5" rx="1.5" fill="var(--brand)"/></svg>
+          <svg class="s32" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M5 28V16a11 11 0 0 1 22 0v12" stroke="currentColor" stroke-width="4" stroke-linecap="butt"/><rect x="13" y="12.5" width="6" height="5" rx="1.5" fill="currentColor"/><rect x="11" y="20" width="10" height="5.5" rx="1.5" fill="currentColor"/></svg>
+          <span class="cap">1 colour</span>
+        </div>
+        <div class="mark-body">
+          <span class="kind">Symbolic object</span>
+          <h3>The kiln</h3>
+          <p>An arch with two pieces on the shelf. The warmest mark of the five and the only one that shows work in progress rather than work finished.</p>
+          <div class="verdict"><b>Trade</b><span>Contradicts the "artisans broadly" brief &mdash; a kiln is a ceramics kiln. Keep it only if ceramics stays the front door.</span></div>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="callout" style="margin-top:1.5rem;">
+      <b>Chosen: the weave.</b> The other four are kept here as the record of what was
+      considered and why, not as live options. The system built on it is in the
+      <b>design chart</b>; the assets are in <code>brand/logo/</code>.
+    </div>
+
+    <div class="callout" style="margin-top:.75rem;">
+      <b>Why:</b> the weave. It is the only mark that carries the product's actual idea &mdash; craft and record fitting together &mdash; without naming a craft, and it is the one that will still be right when the second and third verticals arrive. The trestle M is the safe pick if name recall matters more than meaning.
+    </div>
+  </section>
+
+  <!-- ============ LOCKUPS ============ -->
+  <section class="sec" id="lockups">
+    <div class="sec-head">
+      <h2>Lockups</h2>
+      <span class="note">Shown with the recommended mark</span>
+    </div>
+    <p class="lede">One name, set solid: <b>MakersBrain</b>, never <em>Makers Brain</em> and never <em>MakersBRAIN</em>. The wordmark is Bitter SemiBold at &minus;0.02em tracking; at the sizes below the slab serifs stay open enough to survive a 24&nbsp;px navigation bar.</p>
+
+    <div class="lock-grid">
+      <div class="lock-cell">
+        <span class="lockup" style="font-size:1.75rem;">
+          <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M3 3h26v6H9v20H3Z" fill="currentColor"/><path d="M29 29H3v-6h20V3h6Z" fill="var(--brand)"/><path d="M23 3h6v6h-6Z" fill="currentColor"/></svg>
+          MakersBrain
+        </span>
+        <span class="cap">Primary horizontal &mdash; navigation, email, documents</span>
+      </div>
+
+      <div class="lock-cell">
+        <span class="lock-stack" style="font-size:1.375rem;">
+          <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M3 3h26v6H9v20H3Z" fill="currentColor"/><path d="M29 29H3v-6h20V3h6Z" fill="var(--brand)"/><path d="M23 3h6v6h-6Z" fill="currentColor"/></svg>
+          MakersBrain
+        </span>
+        <span class="cap">Stacked &mdash; square placements, print, packaging</span>
+      </div>
+
+      <div class="lock-cell">
+        <div class="clearspace">
+          <span class="box" aria-hidden="true"></span>
+          <svg viewBox="0 0 32 32" style="width:48px;height:48px;display:block;color:var(--text);" aria-hidden="true"><path d="M3 3h26v6H9v20H3Z" fill="currentColor"/><path d="M29 29H3v-6h20V3h6Z" fill="var(--brand)"/><path d="M23 3h6v6h-6Z" fill="currentColor"/></svg>
+        </div>
+        <span class="cap">Clear space &mdash; one strand width on every side, never less</span>
+      </div>
+
+      <div class="lock-cell">
+        <div class="row" style="justify-content:center;gap:1.25rem;">
+          <svg viewBox="0 0 32 32" style="width:16px;height:16px;color:var(--text);" aria-hidden="true"><path d="M3 3h26v6H9v20H3Z" fill="currentColor"/><path d="M29 29H3v-6h20V3h6Z" fill="var(--brand)"/><path d="M23 3h6v6h-6Z" fill="currentColor"/></svg>
+          <span class="lockup" style="font-size:.8125rem;">
+            <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M3 3h26v6H9v20H3Z" fill="currentColor"/><path d="M29 29H3v-6h20V3h6Z" fill="var(--brand)"/><path d="M23 3h6v6h-6Z" fill="currentColor"/></svg>
+            MakersBrain
+          </span>
+        </div>
+        <span class="cap">Minimums &mdash; mark alone at 16&nbsp;px, lockup at 13&nbsp;px. Below that, mark only.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ COLOUR ============ -->
+  <section class="sec" id="colour">
+    <div class="sec-head">
+      <h2>Colour</h2>
+      <span class="note">Every pairing below is measured, not estimated</span>
+    </div>
+    <p class="lede">Clay is the only loud colour and it is spent on one thing per screen. The neutrals are warmed toward the clay hue rather than toward yellow, which is what stops the palette reading as the default cream every craft brand arrives at. Slate exists so the palette has one cool reference point and never becomes a single-temperature wash.</p>
+
+    <div class="ramp">
+      <div class="ramp-head"><b>Clay</b><span>brand, interactive, decorative</span></div>
+      <div class="ramp-swatches">
+        <div class="sw" style="background:#FDF1EC;color:#401C11;"><b>50</b><span>FDF1EC</span></div>
+        <div class="sw" style="background:#F9DFD4;color:#401C11;"><b>100</b><span>F9DFD4</span></div>
+        <div class="sw" style="background:#F0BFAB;color:#401C11;"><b>200</b><span>F0BFAB</span></div>
+        <div class="sw" style="background:#E39C80;color:#401C11;"><b>300</b><span>E39C80</span></div>
+        <div class="sw" style="background:#D27C5C;color:#2F1409;"><b>400</b><span>D27C5C</span></div>
+        <div class="sw" style="background:#C05F3D;color:#FFF;"><b>500</b><span>C05F3D</span></div>
+        <div class="sw" style="background:#A34A2C;color:#FFF;"><b>600</b><span>A34A2C</span></div>
+        <div class="sw" style="background:#833A23;color:#FFF;"><b>700</b><span>833A23</span></div>
+        <div class="sw" style="background:#612B1A;color:#FFF;"><b>800</b><span>612B1A</span></div>
+        <div class="sw" style="background:#401C11;color:#FFF;"><b>900</b><span>401C11</span></div>
+      </div>
+    </div>
+
+    <div class="ramp">
+      <div class="ramp-head"><b>Sand</b><span>neutrals, biased ~25&deg; toward clay</span></div>
+      <div class="ramp-swatches">
+        <div class="sw" style="background:#FFFFFF;color:#1E1915;"><b>0</b><span>FFFFFF</span></div>
+        <div class="sw" style="background:#F4EFEB;color:#1E1915;"><b>100</b><span>F4EFEB</span></div>
+        <div class="sw" style="background:#E9E1DB;color:#1E1915;"><b>200</b><span>E9E1DB</span></div>
+        <div class="sw" style="background:#D6CAC1;color:#1E1915;"><b>300</b><span>D6CAC1</span></div>
+        <div class="sw" style="background:#B2A398;color:#1E1915;"><b>400</b><span>B2A398</span></div>
+        <div class="sw" style="background:#877669;color:#FFF;"><b>500</b><span>877669</span></div>
+        <div class="sw" style="background:#64564C;color:#FFF;"><b>600</b><span>64564C</span></div>
+        <div class="sw" style="background:#493E36;color:#FFF;"><b>700</b><span>493E36</span></div>
+        <div class="sw" style="background:#2F2822;color:#FFF;"><b>800</b><span>2F2822</span></div>
+        <div class="sw" style="background:#1E1915;color:#FFF;"><b>900</b><span>1E1915</span></div>
+        <div class="sw" style="background:#130F0D;color:#FFF;"><b>950</b><span>130F0D</span></div>
+      </div>
+    </div>
+
+    <div class="ramp">
+      <div class="ramp-head"><b>Support</b><span>kiln for heat and in-progress, sage for settled, slate for neutral information</span></div>
+      <div class="ramp-swatches">
+        <div class="sw" style="background:#FCEACC;color:#401C11;"><b>kiln 100</b><span>FCEACC</span></div>
+        <div class="sw" style="background:#E09A2E;color:#2F1409;"><b>kiln 500</b><span>E09A2E</span></div>
+        <div class="sw" style="background:#A76C12;color:#FFF;"><b>kiln 700</b><span>A76C12</span></div>
+        <div class="sw" style="background:#DFEBE1;color:#24583F;"><b>sage 100</b><span>DFEBE1</span></div>
+        <div class="sw" style="background:#2F6E56;color:#FFF;"><b>sage 500</b><span>2F6E56</span></div>
+        <div class="sw" style="background:#24583F;color:#FFF;"><b>sage 700</b><span>24583F</span></div>
+        <div class="sw" style="background:#DCE7EF;color:#2A4A63;"><b>slate 100</b><span>DCE7EF</span></div>
+        <div class="sw" style="background:#3B6584;color:#FFF;"><b>slate 500</b><span>3B6584</span></div>
+        <div class="sw" style="background:#2A4A63;color:#FFF;"><b>slate 700</b><span>2A4A63</span></div>
+      </div>
+    </div>
+
+    <h3 style="font-size:1.125rem;margin:2.25rem 0 .85rem;">Measured pairings</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Role</th><th>Light</th><th class="num">Ratio</th><th>Dark</th><th class="num">Ratio</th><th>Verdict</th></tr></thead>
+        <tbody>
+          <tr><td>Body text on ground</td><td><span class="dot" style="background:#1E1915"></span>1E1915</td><td class="num">15.77</td><td><span class="dot" style="background:#F4EFEB"></span>F4EFEB</td><td class="num">16.69</td><td class="pass">AAA</td></tr>
+          <tr><td>Muted text</td><td><span class="dot" style="background:#64564C"></span>64564C</td><td class="num">6.38</td><td><span class="dot" style="background:#B2A398"></span>B2A398</td><td class="num">7.79</td><td class="pass">AA</td></tr>
+          <tr><td>Subtle text</td><td><span class="dot" style="background:#7A6A5D"></span>7A6A5D</td><td class="num">4.70</td><td><span class="dot" style="background:#877669"></span>877669</td><td class="num">4.00</td><td class="pass-l">AA / large only in dark</td></tr>
+          <tr><td>Accent as text</td><td><span class="dot" style="background:#A34A2C"></span>A34A2C</td><td class="num">5.32</td><td><span class="dot" style="background:#E39C80"></span>E39C80</td><td class="num">8.47</td><td class="pass">AA</td></tr>
+          <tr><td>Text on filled button</td><td><span class="dot" style="background:#FFFFFF"></span>on A34A2C</td><td class="num">5.88</td><td><span class="dot" style="background:#130F0D"></span>on D27C5C</td><td class="num">6.15</td><td class="pass">AA</td></tr>
+          <tr><td>Brand tone, decorative</td><td><span class="dot" style="background:#C05F3D"></span>C05F3D</td><td class="num">3.84</td><td><span class="dot" style="background:#D27C5C"></span>D27C5C</td><td class="num">6.15</td><td class="pass-l">Marks and large type only</td></tr>
+          <tr><td>Success</td><td><span class="dot" style="background:#2F6E56"></span>2F6E56</td><td class="num">5.45</td><td><span class="dot" style="background:#6FA98A"></span>6FA98A</td><td class="num">7.00</td><td class="pass">AA</td></tr>
+          <tr><td>Warning</td><td><span class="dot" style="background:#96600D"></span>96600D</td><td class="num">4.78</td><td><span class="dot" style="background:#E09A2E"></span>E09A2E</td><td class="num">8.01</td><td class="pass">AA</td></tr>
+          <tr><td>Danger</td><td><span class="dot" style="background:#B03A2B"></span>B03A2B</td><td class="num">5.45</td><td><span class="dot" style="background:#E08575"></span>E08575</td><td class="num">7.06</td><td class="pass">AA</td></tr>
+          <tr><td>Information</td><td><span class="dot" style="background:#3B6584"></span>3B6584</td><td class="num">5.62</td><td><span class="dot" style="background:#7EA8C4"></span>7EA8C4</td><td class="num">7.52</td><td class="pass">AA</td></tr>
+          <tr><td>Control border</td><td><span class="dot" style="background:#948274"></span>948274</td><td class="num">3.33</td><td><span class="dot" style="background:#736558"></span>736558</td><td class="num">3.10</td><td class="pass">AA non-text</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="u-s" style="color:var(--subtle);margin-top:.75rem;">Two values were moved off the natural ramp to clear 4.5:1 as text: warning is kiln-700 darkened to <code>#96600D</code>, and subtle text is <code>#7A6A5D</code> rather than sand-500. Danger on clay-red is deliberately far enough round the hue wheel from the accent to stay distinguishable.</p>
+  </section>
+
+  <!-- ============ TYPE ============ -->
+  <section class="sec" id="type">
+    <div class="sec-head">
+      <h2>Typography</h2>
+      <span class="note">Bitter &middot; IBM Plex Sans &middot; JetBrains Mono</span>
+    </div>
+
+    <div class="pairing">
+      <div class="pair-card">
+        <span class="eyebrow">Display</span>
+        <span class="big" style="font-family:var(--f-display);font-weight:600;">Bitter</span>
+        <p>A screen-native slab. It reads as workshop signage, crate stencils and tool catalogues rather than boutique editorial &mdash; which is the whole difference between this brand and the cream-and-serif direction every craft company lands on. It also holds its weight down at 18&nbsp;px, where a high-contrast display serif falls apart.</p>
+      </div>
+      <div class="pair-card">
+        <span class="eyebrow">Interface</span>
+        <span class="big" style="font-family:var(--f-ui);font-weight:600;">IBM Plex Sans</span>
+        <p>Humanist enough to sit beside a slab without arguing with it, and engineered enough for dense tables. Chosen over Inter for its numerals and its Latin-ext coverage, which an ERP running French micro-entreprise paperwork actually exercises.</p>
+      </div>
+      <div class="pair-card">
+        <span class="eyebrow">Data</span>
+        <span class="big" style="font-family:var(--f-mono);font-weight:500;">JetBrains Mono</span>
+        <p>Lot codes, SKUs, QR payloads, SIRET numbers, firing schedules. Anything a person will read back aloud or type into a label printer belongs in mono, where 0 and O cannot be confused.</p>
+      </div>
+    </div>
+
+    <h3 style="font-size:1.125rem;margin:2.25rem 0 .5rem;">Display scale</h3>
+    <div class="spec"><span class="spec-label">display-xl &middot; 56/59 &middot; -0.025em</span><span class="spec-sample d-xl">Run the workshop</span></div>
+    <div class="spec"><span class="spec-label">display &middot; 44/48 &middot; -0.02em</span><span class="spec-sample d-l">Every piece accounted for</span></div>
+    <div class="spec"><span class="spec-label">h1 &middot; 36/40</span><span class="spec-sample d-h1">Firings, lots and labels</span></div>
+    <div class="spec"><span class="spec-label">h2 &middot; 28/34</span><span class="spec-sample d-h2">Depot and market profitability</span></div>
+    <div class="spec"><span class="spec-label">h3 &middot; 22/29</span><span class="spec-sample d-h3">Micro-entreprise declarations, filed on time</span></div>
+
+    <h3 style="font-size:1.125rem;margin:2.25rem 0 .5rem;">Interface scale</h3>
+    <div class="spec"><span class="spec-label">body-lg &middot; 17/27 &mdash; marketing prose</span><span class="spec-sample u-lg">A glaze test that worked in March is worth nothing if you cannot find which bucket it came from. MakersBrain keeps the thread from raw material to the piece on the shelf.</span></div>
+    <div class="spec"><span class="spec-label">body &middot; 15/23 &mdash; interface default</span><span class="spec-sample u-b">Bisque firing 2026-034 completed at 04:12. Forty-one pieces advanced to glaze; two were marked lost and removed from the lot.</span></div>
+    <div class="spec"><span class="spec-label">small &middot; 13/20 &mdash; secondary and help text</span><span class="spec-sample u-s">Rates are pulled from the URSSAF schedule in force on the declaration date, not today's.</span></div>
+    <div class="spec"><span class="spec-label">micro &middot; 11 &middot; 0.08em uppercase &mdash; eyebrows, column heads</span><span class="spec-sample u-m">Consignment &middot; Depot &middot; Kiln &middot; Materials</span></div>
+    <div class="spec"><span class="spec-label">mono &middot; 14 &mdash; identifiers</span><span class="spec-sample m-b">MB-2026-034-017 &middot; SIRET 812 456 391 00027 &middot; 1 245,60&nbsp;&euro;</span></div>
+
+    <div class="callout" style="margin-top:1.5rem;">
+      Accents are load-bearing here, not decoration: <b>é è à ç ù â ê î ô û ë ï ü œ Œ</b> and the narrow no-break space before <b>:</b> <b>;</b> <b>!</b> <b>?</b> and inside <b>1 245,60&nbsp;&euro;</b>. Both faces ship the Latin-ext coverage this needs; a French interface set in a latin-only subset will silently fall back mid-word.
+    </div>
+  </section>
+
+  <!-- ============ COMPONENTS ============ -->
+  <section class="sec" id="kit">
+    <div class="sec-head">
+      <h2>Components</h2>
+      <span class="note">The primitives every surface shares</span>
+    </div>
+    <p class="lede">Radii stay modest on purpose. The chop and the weave carry whatever roundness the brand needs; if the interface is also made of pills the two fight, and dense tables lose vertical rhythm.</p>
+
+    <div class="kit">
+      <div class="panel">
+        <h4>Buttons</h4>
+        <div class="row">
+          <button class="btn" type="button">Create workshop</button>
+          <button class="btn outline" type="button">Cancel</button>
+          <button class="btn quiet" type="button">Skip</button>
+        </div>
+        <div class="row">
+          <button class="btn dgr" type="button">Delete database</button>
+          <button class="btn" type="button" disabled>Restoring&hellip;</button>
+        </div>
+        <p class="u-s" style="color:var(--subtle);">One filled button per view. If two things look equally primary, neither is.</p>
+      </div>
+
+      <div class="panel">
+        <h4>Fields</h4>
+        <div class="field">
+          <label for="ws">Workshop name</label>
+          <input id="ws" type="text" value="Atelier Bellevue" />
+          <span class="hint">Appears on invoices and on printed labels.</span>
+        </div>
+        <div class="field">
+          <label for="rg">Tax regime</label>
+          <select id="rg"><option>Micro-entreprise &mdash; BIC vente</option><option>Micro-entreprise &mdash; BNC</option><option>R&eacute;el simplifi&eacute;</option></select>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h4>Status</h4>
+        <div class="row">
+          <span class="badge ok"><span class="pip"></span>Fired</span>
+          <span class="badge wa"><span class="pip"></span>In kiln</span>
+          <span class="badge da"><span class="pip"></span>Lost</span>
+          <span class="badge in"><span class="pip"></span>Draft</span>
+          <span class="badge ac"><span class="pip"></span>On consignment</span>
+          <span class="badge"><span class="pip"></span>Archived</span>
+        </div>
+        <p class="u-s" style="color:var(--subtle);">State is carried by the pip and the label together, never by colour alone.</p>
+        <div class="callout">A declaration is due in 6 days. Nothing is filed yet.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ IN SITU ============ -->
+  <section class="sec" id="situ">
+    <div class="sec-head">
+      <h2>In situ</h2>
+      <span class="note">The same tokens on two very different surfaces</span>
+    </div>
+    <p class="lede">A system is only real once it survives both the loudest screen and the densest one. Left, the marketing register; right, the control plane, where the type gets smaller, the accent gets rarer, and the numbers have to line up.</p>
+
+    <div class="situ">
+      <div class="mock">
+        <div class="hero-mock">
+          <span class="eyebrow">For workshops that sell what they make</span>
+          <h3>Your workshop already has a system. This one remembers it.</h3>
+          <p>Materials, firings, lots, labels, markets and the paperwork the state wants &mdash; one thread, from the clay to the receipt.</p>
+          <div class="row">
+            <button class="btn" type="button">Start a workshop</button>
+            <button class="btn outline" type="button">See how it works</button>
+          </div>
+        </div>
+        <div class="mock-cap">Landing &mdash; display type at full size, one filled button, clay spent once</div>
+      </div>
+
+      <div class="mock">
+        <div class="mock-bar">
+          <span class="lockup">
+            <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M3 3h26v6H9v20H3Z" fill="currentColor"/><path d="M29 29H3v-6h20V3h6Z" fill="var(--brand)"/><path d="M23 3h6v6h-6Z" fill="currentColor"/></svg>
+            MakersBrain
+          </span>
+          <span class="mock-nav"><span class="on">Workshops</span><span>Operations</span><span>Status</span></span>
+        </div>
+        <div class="mock-body">
+          <div class="stat-row">
+            <div class="stat"><span class="k">Workshops</span><span class="v">14</span><span class="d">2 provisioning</span></div>
+            <div class="stat"><span class="k">Firings today</span><span class="v">3</span><span class="d">1 holding</span></div>
+            <div class="stat"><span class="k">Due to URSSAF</span><span class="v">1&nbsp;245&euro;</span><span class="d">in 6 days</span></div>
+          </div>
+          <table class="mini">
+            <thead><tr><th>Workshop</th><th>Lot</th><th>State</th></tr></thead>
+            <tbody>
+              <tr><td>Atelier Bellevue</td><td class="mono">MB-2026-034</td><td><span class="badge ok"><span class="pip"></span>Fired</span></td></tr>
+              <tr><td>Poterie du Vieux Puits</td><td class="mono">MB-2026-035</td><td><span class="badge wa"><span class="pip"></span>In kiln</span></td></tr>
+              <tr><td>Grès &amp; Compagnie</td><td class="mono">MB-2026-031</td><td><span class="badge in"><span class="pip"></span>Draft</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="mock-cap">Control plane &mdash; interface scale, tabular numerals, accent held back to one underline</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ROLLOUT ============ -->
+  <section class="sec" id="rollout">
+    <div class="sec-head">
+      <h2>Rollout</h2>
+      <span class="note">In dependency order &mdash; each step needs the one before it</span>
+    </div>
+    <p class="lede">These are genuinely sequential: the mark decides the favicon and the lockup, the lockup decides the shells, and the Odoo overrides are last because they are the only ones that have to fight an upstream theme.</p>
+
+    <div class="steps">
+      <div class="step">
+        <span class="step-mark">1</span>
+        <div>
+          <h4>Choose the mark</h4>
+          <p>One of the five. Everything downstream is blocked on it, and nothing downstream is expensive once it is settled.</p>
+          <span class="files">brand/logo/*.svg</span>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-mark">2</span>
+        <div>
+          <h4>Finish the chosen mark's asset set</h4>
+          <p>Dark variants with the accent stepped up to clay-400, an outlined-text wordmark that needs no font, favicon and PWA sizes, and a monochrome cut for label printing &mdash; the Phomemo path is one-bit, so the mark has to survive with no greys at all.</p>
+          <span class="files">brand/logo/ &mdash; light, dark, mono, wordmark, favicon</span>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-mark">3</span>
+        <div>
+          <h4>Retrofit the control plane</h4>
+          <p>Replace the ad-hoc palette in <code>app.css</code> &mdash; the deep green on cream, Georgia headings &mdash; with the token file. The existing green survives as the success tone, so the diff is smaller than it looks.</p>
+          <span class="files">control-plane/web/src/app.css, src/routes/+layout.svelte</span>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-mark">4</span>
+        <div>
+          <h4>Build the landing page</h4>
+          <p>New surface, no legacy to fight. This is where the display scale and the editorial register earn their keep.</p>
+          <span class="files">new</span>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-mark">5</span>
+        <div>
+          <h4>Odoo backend overrides</h4>
+          <p>Last, and deliberately shallow: brand the login, the app switcher, the label editor and the capture screens, and leave the rest of the Odoo web client alone. Fighting an upstream theme wholesale is a cost that never stops.</p>
+          <span class="files">addons/mb_workshop_base/static/src/, mb_label/static/src/editor/</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  </main>
+</div>
+</div>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var buttons = Array.prototype.slice.call(document.querySelectorAll('.themer button'));
+  function apply(mode) {
+    if (mode === 'system') { root.removeAttribute('data-theme'); }
+    else { root.setAttribute('data-theme', mode); }
+    buttons.forEach(function (b) {
+      b.setAttribute('aria-pressed', String(b.dataset.set === mode));
+    });
+  }
+  buttons.forEach(function (b) {
+    b.addEventListener('click', function () { apply(b.dataset.set); });
+  });
+})();
+</script>
