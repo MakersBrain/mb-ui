@@ -163,10 +163,14 @@ rather than sand-500.
 All three are OFL, so self-hosting is fine. Serve the `latin` and `latin-ext`
 subsets both; a French interface on a latin-only subset falls back mid-word.
 
-The woff2 subsets in [`fonts/`](fonts/) are **not** shipped in the package --
-they exist to be inlined into the two reference pages below. A consuming app
-delivers the fonts itself, through fontsource or its own `@font-face`. The
-wordmark needs no font at any point, because it is outlined.
+The `latin` and `latin-ext` woff2 subsets of Bitter and IBM Plex Sans ship with
+the package, at `@makersbrain/brand/fonts/*.woff2`. An app is free to deliver
+them through fontsource or its own pipeline instead -- but a page that inlines
+its fonts to stay self-contained (the landing page, the two reference pages
+below) needs the bytes from somewhere, and sourcing them per-consumer is how two
+surfaces end up on different cuts of the same family.
+
+The wordmark needs no font at any point, because it is outlined.
 
 ## Working on it
 

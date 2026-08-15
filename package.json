@@ -35,10 +35,12 @@
 		},
 		"./svelte/*.svelte": "./src/svelte/*.svelte",
 		"./logo/*": "./src/logo/*",
+		"./fonts/*": "./fonts/*",
 		"./package.json": "./package.json"
 	},
 	"files": [
 		"src",
+		"fonts",
 		"README.md"
 	],
 	"scripts": {
