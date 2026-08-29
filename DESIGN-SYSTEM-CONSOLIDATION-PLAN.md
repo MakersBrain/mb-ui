@@ -1,6 +1,6 @@
 # MakersBrain design-system consolidation plan
 
-Status: in progress  
+Status: in progress
 Last updated: 2026-08-29
 
 ## Execution record
