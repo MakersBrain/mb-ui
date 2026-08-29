@@ -1,36 +1,25 @@
 # Licensing
 
-The source code, CSS, Svelte components, build scripts, and documentation in
-this package are licensed under the MIT License:
-
 Copyright (c) 2026 MakersBrain contributors
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-the Software, and to permit persons to whom the Software is furnished to do so,
-subject to the following conditions:
+All MakersBrain-authored content in this package, including source code, CSS,
+Svelte components, build scripts, documentation, and original visual assets,
+is licensed under the GNU Affero General Public License, version 3 only
+(`AGPL-3.0-only`). You may redistribute and modify it under the terms of that
+license. The complete license text is available from the
+[GNU Project](https://www.gnu.org/licenses/agpl-3.0.html).
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+This program is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for the
+complete terms.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+## Trademarks
 
-## Brand assets and trademarks
-
-The MakersBrain name, wordmark, weave mark, chop mark, lockups, and generated
-logo files under `src/logo/` are not licensed under the MIT License. They are
-MakersBrain brand assets and remain all rights reserved. Installing the package
-grants permission to render those assets only as part of an authorized
-MakersBrain product or deployment. It does not grant trademark rights or
-permission to imply endorsement, affiliation, or origin.
+The AGPL copyright license does not grant trademark rights or permission to use
+the MakersBrain name or marks in a way that implies endorsement, affiliation,
+or origin. This trademark limitation does not restrict the AGPL rights granted
+in the copyrighted logo files themselves.
 
 The bundled font files retain their upstream SIL Open Font License terms. See
 `fonts/README.md` for their provenance and licenses.

@@ -238,7 +238,7 @@ To move to npmjs.com instead, change `registry-url` in the workflow and
 
 ## License and brand use
 
-Code, styles, components, scripts, and documentation are MIT licensed. The
-MakersBrain name and logo assets remain reserved brand assets, and the bundled
+MakersBrain-authored code, styles, components, scripts, documentation, and
+visual assets are AGPL-3.0-only. Trademark rights are not granted, and bundled
 fonts retain their upstream OFL terms. See [LICENSE.md](LICENSE.md) for the exact
 boundary.
