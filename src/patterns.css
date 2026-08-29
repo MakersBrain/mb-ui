@@ -1,0 +1,385 @@
+/* MakersBrain shared interface patterns.
+ *
+ * The classes behind `@makersbrain/ui/svelte`'s interface components, split out
+ * of ui.css so that a surface can take the components without taking a reset.
+ *
+ * Why this file exists at all
+ * --------------------------
+ * `ui.css` styles elements: `table`, `code`, `a`, `h1`. That is the right shape
+ * for a surface it owns end to end, and the wrong shape for one built on
+ * Tailwind and shadcn, where those element rules land in the same cascade as
+ * preflight and a data grid's own stylesheet. The catalogue explorer therefore
+ * took `tokens.css` and skipped `ui.css` -- and then rebuilt the metric, the
+ * badge and the section header locally, which is how one system became two.
+ *
+ * So everything here is single-class and prefixed:
+ *
+ *  - No element selectors. Nothing changes unless a class asks for it.
+ *  - `mb-` on every name. `.grid`, `.table` and `.row` are Tailwind utilities,
+ *    and a shared package must not gamble that a consumer never writes one.
+ *  - Tokens only. Every value is a `var(--mb-*)`, so a theme switch reaches
+ *    these without a second definition.
+ *
+ * `ui.css` composes this file, so a surface already on `ui.css` gets it for
+ * free and keeps its unprefixed classes.
+ *
+ * Requires tokens.css.
+ */
+
+/* ==========================================================================
+   Panels
+   --------------------------------------------------------------------------
+   The unit of a page is a panel, not a card. A panel is a titled region with a
+   hairline above it and nothing around it -- the rule and the space do the
+   separating that a border box used to do, which is what lets a page hold nine
+   of them without reading as nine objects. A card (`.mb-card`) is still there
+   for the few things that genuinely are objects: one worker, one run.
+   ========================================================================== */
+
+.mb-panel {
+	padding-top: var(--mb-space-4);
+	border-top: var(--mb-border);
+}
+
+.mb-panel-head {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: var(--mb-space-2) var(--mb-space-4);
+	margin-bottom: var(--mb-space-3);
+}
+
+.mb-panel-title {
+	margin: 0;
+	font-family: var(--mb-font-display);
+	font-size: var(--mb-text-h4);
+	font-weight: 600;
+	line-height: var(--mb-leading-snug);
+	letter-spacing: var(--mb-tracking-tight);
+	color: var(--mb-text);
+}
+
+.mb-panel-subtitle {
+	margin: 0.15rem 0 0;
+	font-size: var(--mb-text-small);
+	color: var(--mb-text-muted);
+}
+
+.mb-panel-note {
+	margin-top: var(--mb-space-3);
+	font-size: var(--mb-text-small);
+	line-height: var(--mb-leading-normal);
+	color: var(--mb-text-subtle);
+	max-width: 62ch;
+}
+
+.mb-card {
+	background: var(--mb-surface);
+	border: var(--mb-border);
+	border-radius: var(--mb-radius-lg);
+	padding: var(--mb-space-4);
+}
+
+/* ==========================================================================
+   Headers
+   ========================================================================== */
+
+.mb-page-header {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: var(--mb-space-4);
+	margin-bottom: var(--mb-space-5);
+}
+
+.mb-page-title {
+	margin: 0;
+	font-family: var(--mb-font-display);
+	font-size: var(--mb-text-h2);
+	font-weight: 600;
+	line-height: var(--mb-leading-tight);
+	letter-spacing: var(--mb-tracking-tight);
+	color: var(--mb-text);
+}
+
+.mb-page-description {
+	margin: 0.35rem 0 0;
+	font-size: var(--mb-text-small);
+	line-height: var(--mb-leading-normal);
+	color: var(--mb-text-muted);
+	max-width: 62ch;
+}
+
+/* The eyebrow: uppercase, tracked, micro. Marked up as a heading for the
+   document outline as often as not, so it states its own face rather than
+   inheriting the display one. */
+.mb-eyebrow {
+	display: block;
+	margin: 0 0 0.35rem;
+	font-family: var(--mb-font-ui);
+	font-size: var(--mb-text-micro);
+	font-weight: 600;
+	letter-spacing: var(--mb-tracking-micro);
+	text-transform: uppercase;
+	color: var(--mb-text-subtle);
+}
+
+.mb-actions {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--mb-space-2);
+}
+
+/* ==========================================================================
+   Numbers
+   --------------------------------------------------------------------------
+   Summary before detail: the number, what it is, and what would make someone
+   act on it. A tile reading "3" and nothing else sends the reader to another
+   page to find out whether 3 is bad.
+   ========================================================================== */
+
+.mb-metrics {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+	gap: var(--mb-space-4);
+}
+
+/* Rules between, not boxes around. Four numbers in a row are one statement
+   about the catalogue, and four bordered tiles say they are four things. */
+.mb-metrics-ruled {
+	gap: 0;
+}
+.mb-metrics-ruled > .mb-metric {
+	padding: 0 var(--mb-space-4);
+	border-left: var(--mb-border);
+}
+.mb-metrics-ruled > .mb-metric:first-child {
+	padding-left: 0;
+	border-left: 0;
+}
+
+.mb-metric {
+	display: flex;
+	flex-direction: column;
+	gap: 0.15rem;
+	min-width: 0;
+}
+
+.mb-metric-label {
+	font-family: var(--mb-font-ui);
+	font-size: var(--mb-text-micro);
+	font-weight: 600;
+	letter-spacing: var(--mb-tracking-micro);
+	text-transform: uppercase;
+	color: var(--mb-text-subtle);
+}
+
+.mb-metric-value {
+	font-family: var(--mb-font-display);
+	font-size: var(--mb-text-h3);
+	font-weight: 600;
+	line-height: var(--mb-leading-tight);
+	font-variant-numeric: tabular-nums;
+	color: var(--mb-text);
+	overflow-wrap: anywhere;
+}
+
+.mb-metric-detail {
+	font-size: var(--mb-text-small);
+	color: var(--mb-text-muted);
+}
+
+.mb-metric-value.good {
+	color: var(--mb-success);
+}
+.mb-metric-value.warn {
+	color: var(--mb-warning);
+}
+.mb-metric-value.bad {
+	color: var(--mb-danger);
+}
+.mb-metric-value.quiet {
+	color: var(--mb-text-subtle);
+}
+
+/* ==========================================================================
+   Term and value
+   --------------------------------------------------------------------------
+   The two-column list every operations page hand-builds: a label on the left,
+   a figure right-aligned so a column of them compares by eye.
+   ========================================================================== */
+
+.mb-datalist {
+	display: grid;
+	grid-template-columns: 1fr auto;
+	gap: var(--mb-space-2) var(--mb-space-4);
+	margin: 0;
+	font-size: var(--mb-text-small);
+}
+
+.mb-datalist dt {
+	margin: 0;
+	color: var(--mb-text-muted);
+}
+
+.mb-datalist dd {
+	margin: 0;
+	text-align: right;
+	font-variant-numeric: tabular-nums;
+	color: var(--mb-text);
+}
+
+/* ==========================================================================
+   Status
+   --------------------------------------------------------------------------
+   Colour never carries meaning alone: every badge has a dot and a word.
+   ========================================================================== */
+
+.mb-badge {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4em;
+	padding: 0.1rem 0.5rem;
+	border-radius: var(--mb-radius-full);
+	font-size: var(--mb-text-micro);
+	font-weight: 600;
+	line-height: 1.6;
+	white-space: nowrap;
+}
+
+.mb-badge .mb-dot {
+	width: 0.4em;
+	height: 0.4em;
+	border-radius: 50%;
+	background: currentColor;
+	flex: none;
+}
+
+.mb-badge.good {
+	background: var(--mb-success-tint);
+	color: var(--mb-success);
+}
+.mb-badge.warn {
+	background: var(--mb-warning-tint);
+	color: var(--mb-warning);
+}
+.mb-badge.bad {
+	background: var(--mb-danger-tint);
+	color: var(--mb-danger);
+}
+.mb-badge.info {
+	background: var(--mb-info-tint);
+	color: var(--mb-info);
+}
+.mb-badge.busy {
+	background: var(--mb-accent-tint);
+	color: var(--mb-accent-text);
+}
+.mb-badge.neutral {
+	background: var(--mb-surface-sunken);
+	color: var(--mb-text-muted);
+}
+
+.mb-notice {
+	border-left: 3px solid var(--mb-info);
+	background: var(--mb-info-tint);
+	border-radius: var(--mb-radius-md);
+	padding: var(--mb-space-3) var(--mb-space-4);
+	font-size: var(--mb-text-small);
+	color: var(--mb-text);
+}
+.mb-notice.good {
+	border-left-color: var(--mb-success);
+	background: var(--mb-success-tint);
+}
+.mb-notice.warn {
+	border-left-color: var(--mb-warning);
+	background: var(--mb-warning-tint);
+}
+.mb-notice.bad {
+	border-left-color: var(--mb-danger);
+	background: var(--mb-danger-tint);
+}
+
+/* ==========================================================================
+   Tables and emptiness
+   ========================================================================== */
+
+.mb-table-wrap {
+	overflow-x: auto;
+	border-top: var(--mb-border);
+}
+
+.mb-empty {
+	padding: var(--mb-space-5) var(--mb-space-4);
+	text-align: center;
+	font-size: var(--mb-text-small);
+	color: var(--mb-text-muted);
+}
+.mb-empty-title {
+	display: block;
+	margin-bottom: 0.25rem;
+	font-weight: 600;
+	color: var(--mb-text);
+}
+
+/* ==========================================================================
+   Section tabs
+   --------------------------------------------------------------------------
+   Navigation is two levels and never three. The active tab is named by an
+   underline and a weight, not by a filled pill: a pill reads as a button, and
+   a row of them competes with the one control on the page that is one.
+   ========================================================================== */
+
+.mb-tabs {
+	display: flex;
+	min-width: 0;
+	gap: var(--mb-space-4);
+	overflow-x: auto;
+	scrollbar-width: none;
+}
+.mb-tabs::-webkit-scrollbar {
+	display: none;
+}
+
+.mb-tab {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4em;
+	padding: var(--mb-space-2) 0;
+	border-bottom: 2px solid transparent;
+	color: var(--mb-text-muted);
+	font-size: var(--mb-text-small);
+	text-decoration: none;
+	white-space: nowrap;
+}
+.mb-tab:hover {
+	color: var(--mb-text);
+}
+.mb-tab[aria-current] {
+	color: var(--mb-text);
+	font-weight: 600;
+	border-bottom-color: var(--mb-accent);
+}
+
+/* The long label and the short one. Both ship; the width decides. Below the
+   breakpoint the strip shortens, and only if it still does not fit does it
+   scroll -- in that order, because a wrap is the one outcome that moves the
+   page rather than the strip. */
+.mb-tab-short {
+	display: inline;
+}
+.mb-tab-long {
+	display: none;
+}
+@media (min-width: 40rem) {
+	.mb-tab-short {
+		display: none;
+	}
+	.mb-tab-long {
+		display: inline;
+	}
+}

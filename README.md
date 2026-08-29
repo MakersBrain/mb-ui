@@ -53,6 +53,20 @@ without the second if the surface has its own components; never take the second
 without the first, which is a stylesheet of `var()` calls resolving to nothing.
 Product workflows and layouts stay in their product repository.
 
+There is a third, narrower option:
+
+```css
+@import '@makersbrain/ui/patterns.css'; /* the components, without the reset */
+```
+
+`patterns.css` is what `@makersbrain/ui/svelte`'s interface components are
+styled by, and it is the file to take when the surface is already on Tailwind,
+shadcn or another component set. Every selector in it is a single `mb-`
+prefixed class -- no element rules, no bare names like `.grid` or `.table` that
+a utility framework also claims -- so it can be added to an existing stylesheet
+without a cascade fight. `ui.css` composes it, so a surface on `ui.css` already
+has it.
+
 Framework bridges are explicit and optional:
 
 ```css
@@ -75,6 +89,42 @@ used to keep Odoo's compile-time variables aligned with the CSS tokens.
 `BrandMark`, `BrandWordmark` and `BrandLockup` are the three. The mark inherits
 `currentColor` for its ink strand and reads `--mb-brand` for its clay one, which
 is why it needs no dark-mode variant: import `tokens.css` and it adapts.
+
+### The interface components
+
+Beside the mark, the package ships the primitives that had been rebuilt in every
+consumer: `Metric`, `StatusBadge`, `Panel`, `PageHeader`, `SectionHeader`,
+`DataList`, `TableWrap`, `EmptyState`, `Notice` and `Tabs`. They need
+`patterns.css` (or `ui.css`, which composes it) and nothing else -- no Tailwind,
+no shadcn, no build step.
+
+```svelte
+<script>
+  import { Panel, Metric, StatusBadge } from '@makersbrain/ui/svelte';
+</script>
+
+<div class="mb-metrics mb-metrics-ruled">
+  <Metric label="Queue" value={queued} detail="4 broker ready" />
+  <Metric label="Last run" value="ok" detail="12 minutes ago" tone="good" />
+</div>
+
+<Panel title="Queue delivery" subtitle="Outbox to provider">
+  {#snippet actions()}<StatusBadge tone="good">NATS JetStream</StatusBadge>{/snippet}
+  ...
+</Panel>
+```
+
+Two rules are built into them rather than left to each caller. A metric states
+the number *and* what would make someone act on it, because a tile reading "3"
+alone sends the reader to another page to find out whether 3 is bad. And a badge
+always carries a dot and a word, because colour is never the only carrier of a
+state.
+
+A panel, not a card, is the unit of a page: a hairline above, a title, the
+content. Nine bordered cards read as nine objects a reader has to sort; the same
+nine as ruled panels read as one page with nine parts. `.mb-card` stays for the
+things that genuinely are objects -- one worker, one run -- where the border is
+saying "this is a thing" rather than "this is a section".
 
 For anything that is not Svelte, the paths themselves are exported:
 
