@@ -1,7 +1,38 @@
 # MakersBrain design-system consolidation plan
 
-Status: proposed  
+Status: in progress  
 Last updated: 2026-08-29
+
+## Execution record
+
+Completed on 2026-08-29:
+
+- renamed the repository to public `MakersBrain/mb-ui` and the package to
+  public `@makersbrain/ui`;
+- replaced `@makersbrain/ui@0.1.0` under `AGPL-3.0-only`, verified its package
+  checks and tarball, and granted workflow read access to every current
+  consumer;
+- created public `MakersBrain/mb-site`, built the SvelteKit static homepage,
+  Privacy Policy, and Terms, and deployed them through Cloudflare Pages at
+  `https://makersbrain.app/`;
+- migrated the control plane, catalogue, and Odoo repositories to
+  `@makersbrain/ui`;
+- generated and drift-checked the Odoo SCSS projection from the shared tokens;
+- removed the old Odoo-owned landing build after the canonical site became
+  live; and
+- adopted `AGPL-3.0-only` for current MakersBrain-authored work across the
+  organization, while retaining mandatory upstream licenses for third-party
+  dependencies and bundled fonts.
+
+Still open:
+
+- confirm the public contact mailbox, legal-controller identity, retention
+  language, and legal review before submitting Google OAuth verification;
+- finish classifying product-specific selectors and promoting only primitives
+  proven in two consumers;
+- add the compatibility fixture and complete the documented visual,
+  accessibility, and rollback rehearsals; and
+- deprecate `@makersbrain/brand` if registry permissions are later granted.
 
 ## Decision
 
@@ -143,9 +174,9 @@ works, existing consumers still install unchanged, and CI passes.
 
 ### Phase 2 — Publish the new package identity
 
-- Decide and record the code license for the distributable package.
-- Add a separate trademark and brand-asset usage policy; a code license must not
-  accidentally grant rights to imply MakersBrain endorsement.
+- License MakersBrain-authored package contents under `AGPL-3.0-only`, retain
+  upstream font licenses, and state separately that the copyright license does
+  not grant trademark rights or permission to imply endorsement.
 - Change the package name to `@makersbrain/ui` and start its independent release
   line at `0.1.0`; the old and new names are distinct registry subjects.
 - Update package metadata, documentation, workflow configuration, provenance,
@@ -288,7 +319,9 @@ product-specific styling remain independent.
 - After every consumer uses `@makersbrain/ui`, remove compatibility CSS only in
   a documented breaking release. At that point, mark `@makersbrain/brand`
   deprecated with a pointer to `@makersbrain/ui` if registry permissions allow
-  it. Keep all old versions available as immutable rollback artifacts.
+  it. The initial `@makersbrain/ui@0.1.0` was deliberately replaced before
+  adoption to correct its license; all subsequent published versions are
+  treated as immutable rollback artifacts.
 
 Exit criteria: the public site has one source repository and one deployment
 path, and `mb-odoo-addons` retains no website build responsibility.
