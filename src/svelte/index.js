@@ -1,12 +1,12 @@
 /**
- * `@makersbrain/brand/svelte` -- the mark, rendered.
+ * `@makersbrain/ui/svelte` -- the mark, rendered.
  *
- *     import { BrandLockup } from '@makersbrain/brand/svelte';
+ *     import { BrandLockup } from '@makersbrain/ui/svelte';
  *
  * Deep imports work too, and are what to reach for when a bundler should see
  * only the one component:
  *
- *     import BrandMark from '@makersbrain/brand/svelte/BrandMark.svelte';
+ *     import BrandMark from '@makersbrain/ui/svelte/BrandMark.svelte';
  *
  * These ship as Svelte source, not compiled output. The consumer's own Svelte
  * compiles them, which is what keeps the package free of a build step and free

@@ -12,7 +12,7 @@ name: CI
 on:
   push:
     branches: [main]
-    tags: ['v*']
+    tags: ['v*', 'ui-v*']
   pull_request:
   workflow_dispatch:
 
@@ -39,7 +39,9 @@ jobs:
       # byte-reproducible across versions, so diffing it would fail on a patch
       # release rather than on a real change.
       - name: Regenerate and compare
-        run: python3 build/build-logo.py --skip-wordmark --check --no-raster
+        run: |
+          python3 build/build-logo.py --skip-wordmark --check --no-raster
+          node scripts/build-odoo-scss.mjs --check
 
   types:
     name: Types and components

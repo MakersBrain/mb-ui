@@ -1,10 +1,13 @@
-/* MakersBrain UI layer.
+@import './base.css';
+
+/* MakersBrain UI primitives and compositions.
  *
  * The design chart, as code. Every rule here is the implementation of a
  * decision documented in brand/design-chart.html; if the two disagree, this
  * file is right and the chart needs regenerating.
  *
- * Requires brand/tokens.css to be loaded first.
+ * Requires @makersbrain/ui/tokens.css to be loaded first. base.css is composed
+ * here for compatibility and can also be imported independently.
  *
  * Conventions
  *  - Single-class selectors, no nesting deeper than two levels. Specificity
@@ -13,103 +16,6 @@
  *    button variant is `.button.outline`, never `.button.section`.
  *  - Colour never carries meaning alone: every status has a shape and a word.
  */
-
-/* ==========================================================================
-   1. Reset and base
-   ========================================================================== */
-
-*, *::before, *::after { box-sizing: border-box; }
-
-html { -webkit-text-size-adjust: 100%; }
-
-body {
-  margin: 0;
-  min-width: 320px;
-  background: var(--mb-bg);
-  color: var(--mb-text);
-  font-family: var(--mb-font-ui);
-  font-size: var(--mb-text-body);
-  line-height: var(--mb-leading-normal);
-  -webkit-font-smoothing: antialiased;
-}
-
-h1, h2, h3, h4 {
-  margin: 0;
-  font-family: var(--mb-font-display);
-  font-weight: 600;
-  letter-spacing: var(--mb-tracking-tight);
-  text-wrap: balance;
-}
-h1 { font-size: var(--mb-text-h1); line-height: var(--mb-leading-tight); }
-h2 { font-size: var(--mb-text-h2); line-height: var(--mb-leading-snug); }
-h3 { font-size: var(--mb-text-h3); line-height: var(--mb-leading-snug); }
-h4 { font-size: var(--mb-text-h4); line-height: var(--mb-leading-snug); }
-
-p { margin: 0; }
-a { color: var(--mb-accent-text); text-underline-offset: 3px; }
-hr { border: 0; border-top: var(--mb-border); margin: var(--mb-space-4) 0; }
-
-code, kbd, samp, .mono {
-  font-family: var(--mb-font-mono);
-  font-size: 0.875em;
-  font-variant-ligatures: none;
-}
-code {
-  background: var(--mb-surface-sunken);
-  border-radius: var(--mb-radius-xs);
-  padding: 0.1em 0.32em;
-}
-
-/* Identifiers people read aloud or retype: lot codes, SIRET, invoice refs.
- * Mono plus tabular figures so columns of them line up and 0/O cannot be
- * confused at a glance. */
-.ident {
-  font-family: var(--mb-font-mono);
-  font-variant-numeric: tabular-nums;
-  font-size: 0.875em;
-  color: var(--mb-text-muted);
-}
-
-/* One focus treatment everywhere. Never remove it without replacing it. */
-:focus-visible {
-  outline: 2px solid var(--mb-focus);
-  outline-offset: 2px;
-  border-radius: var(--mb-radius-xs);
-}
-
-.visually-hidden {
-  position: absolute;
-  width: 1px; height: 1px;
-  padding: 0; margin: -1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
-  border: 0;
-}
-
-/* ==========================================================================
-   2. Motion
-   --------------------------------------------------------------------------
-   Two durations only. 120ms for anything the pointer drives (hover, press),
-   200ms for anything that changes layout or reveals content. Longer than that
-   and an operator waiting on a provisioning job starts to feel the interface
-   rather than the work.
-   ========================================================================== */
-
-:root {
-  --mb-ease: cubic-bezier(0.2, 0, 0, 1);
-  --mb-dur-fast: 120ms;
-  --mb-dur-slow: 200ms;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
 
 /* ==========================================================================
    3. Shell and layout
@@ -272,25 +178,11 @@ code {
   padding: var(--mb-space-4);
 }
 
-.workshops { grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr)); }
-.workshop-card {
-  display: grid;
-  gap: var(--mb-space-4);
-  color: inherit;
-  text-decoration: none;
-  transition: border-color var(--mb-dur-fast) var(--mb-ease),
-              transform var(--mb-dur-fast) var(--mb-ease);
-}
-.workshop-card:hover { border-color: var(--mb-line-strong); transform: translateY(-1px); }
-.workshop-card .arrow { color: var(--mb-accent-text); font-size: 1.15rem; line-height: 1; }
-
-.services, .modules, .invite-grid, .database-actions, .metric-grid {
+.metric-grid {
   display: grid;
   gap: var(--mb-space-3);
 }
 .metric-grid { grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); }
-.services, .modules { grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); }
-.database-actions { grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); margin: var(--mb-space-4) 0; }
 
 /* ==========================================================================
    6. Numbers
@@ -395,16 +287,6 @@ td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
 .badge.info { background: var(--mb-info-tint);    color: var(--mb-info); }
 .badge.busy { background: var(--mb-accent-tint);  color: var(--mb-accent-text); }
 
-.target-grid { display: flex; flex-wrap: wrap; gap: var(--mb-space-2); margin-top: var(--mb-space-3); }
-.target {
-  font-size: var(--mb-text-small);
-  padding: 0.2rem 0.45rem;
-  border-radius: var(--mb-radius-xs);
-  background: var(--mb-surface-sunken);
-  color: var(--mb-text-muted);
-}
-.target.degraded { background: var(--mb-danger-tint); color: var(--mb-danger); }
-
 /* Messages. The left rule carries the severity so the text can stay the
  * normal reading colour instead of being tinted into illegibility. */
 .notice, .error, .callout {
@@ -452,16 +334,6 @@ td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
   color: var(--mb-text-muted);
   font-size: var(--mb-text-small);
 }
-.auth-state {
-  max-width: 32rem;
-  margin: 12vh auto;
-  padding: var(--mb-space-6);
-  text-align: center;
-  display: grid;
-  gap: var(--mb-space-4);
-  justify-items: center;
-}
-
 /* ==========================================================================
    9. Controls
    --------------------------------------------------------------------------
@@ -539,8 +411,6 @@ input[aria-invalid="true"], select[aria-invalid="true"] { border-color: var(--mb
 
 .form { display: grid; gap: var(--mb-space-4); }
 .form-actions { display: flex; justify-content: flex-end; gap: var(--mb-space-2); }
-.create-form { display: grid; gap: var(--mb-space-4); }
-
 .filters { display: flex; flex-wrap: wrap; align-items: end; gap: var(--mb-space-3); }
 .filter { display: grid; gap: 0.3rem; min-width: 10rem; }
 .search { position: relative; flex: 1 1 14rem; min-width: 12rem; }
@@ -561,33 +431,6 @@ dialog {
 }
 dialog::backdrop { background: rgba(19, 15, 13, 0.55); }
 
-/* ==========================================================================
-   11. Domain patterns
-   --------------------------------------------------------------------------
-   These earn a name because they recur, not because they are special. Each is
-   a layout only; every colour and size still comes from the tokens above.
-   ========================================================================== */
-
-.member, .recovery-row, .restore, .transfer, .dependency {
-  display: grid;
-  gap: var(--mb-space-4);
-  align-items: center;
-}
-.member { grid-template-columns: minmax(13rem, 1fr) minmax(8rem, 10rem) auto; }
-.recovery-row, .transfer, .dependency { grid-template-columns: minmax(11rem, 1fr) auto; }
-.restore { grid-template-columns: minmax(13rem, 1fr) auto; align-items: end; }
-
-.module-description { font-size: var(--mb-text-small); color: var(--mb-text-muted); }
-.pending-invites { display: grid; gap: var(--mb-space-3); }
-
-.operation-card { display: grid; gap: var(--mb-space-3); }
-.operation-card.compact { padding: var(--mb-space-3); }
-.operation-message { font-size: var(--mb-text-small); color: var(--mb-text-muted); }
-.operation-failure { align-items: end; }
-.member-operation, .recovery-operation { margin-top: var(--mb-space-3); }
-
-.reconciliation { display: grid; gap: var(--mb-space-3); }
-
 /* Destructive actions are separated, not merely coloured. A delete control
  * inside the same card as everything else is a mis-click waiting to happen. */
 .danger-zone {
@@ -601,9 +444,6 @@ dialog::backdrop { background: rgba(19, 15, 13, 0.55); }
 }
 .danger-zone h2, .danger-zone h3 { color: var(--mb-danger); font-size: var(--mb-text-h4); }
 
-.invitation-shell { max-width: 32rem; margin: 12vh auto; padding: var(--mb-space-5); }
-.invitation-card { display: grid; gap: var(--mb-space-4); }
-
 /* ==========================================================================
    12. Narrow screens
    --------------------------------------------------------------------------
@@ -616,7 +456,6 @@ dialog::backdrop { background: rgba(19, 15, 13, 0.55); }
   .global-nav, .account-link, .account-email { display: none; }
   .account-menu { margin-left: auto; }
   .shell { padding: var(--mb-space-5) var(--mb-space-4) var(--mb-space-8); }
-  .member, .recovery-row, .restore, .transfer, .dependency { grid-template-columns: 1fr; }
   .page-header, .section-header, .row { flex-direction: column; align-items: flex-start; }
   .tabs { margin-inline: calc(-1 * var(--mb-space-4)); padding-inline: var(--mb-space-4); }
   .form-actions { justify-content: stretch; }

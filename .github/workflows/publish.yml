@@ -13,7 +13,7 @@ name: Publish
 
 on:
   push:
-    tags: ['v*']
+    tags: ['ui-v*']
   workflow_dispatch:
     inputs:
       dry_run:
@@ -53,18 +53,20 @@ jobs:
       # The same gates CI runs. A tag can be pushed at any commit, including one
       # that never passed CI, so the release re-proves rather than assumes.
       - name: Generated assets match the generator
-        run: python3 build/build-logo.py --skip-wordmark --check --no-raster
+        run: |
+          python3 build/build-logo.py --skip-wordmark --check --no-raster
+          node scripts/build-odoo-scss.mjs --check
       - name: Types and components
         run: npm run check:types
       - name: Exports resolve inside the tarball
         run: node scripts/check-exports.mjs
 
       - name: Tag matches the manifest version
-        if: startsWith(github.ref, 'refs/tags/v')
+        if: startsWith(github.ref, 'refs/tags/ui-v')
         run: |
           set -eu
           manifest="$(node -p 'require("./package.json").version')"
-          tag="${GITHUB_REF_NAME#v}"
+          tag="${GITHUB_REF_NAME#ui-v}"
           if [ "$manifest" != "$tag" ]; then
             echo "tag $GITHUB_REF_NAME does not match package.json version $manifest" >&2
             exit 1

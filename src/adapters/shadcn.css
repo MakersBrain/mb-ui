@@ -1,0 +1,27 @@
+/* Semantic bridge from MakersBrain tokens to shadcn/Tailwind variables.
+ * Import after tokens.css and before shadcn's theme mapping.
+ */
+:root {
+  --background: var(--mb-bg);
+  --foreground: var(--mb-text);
+  --card: var(--mb-surface);
+  --card-foreground: var(--mb-text);
+  --popover: var(--mb-surface);
+  --popover-foreground: var(--mb-text);
+  --primary: var(--mb-accent);
+  --primary-foreground: var(--mb-text-on-accent);
+  --secondary: var(--mb-surface-2);
+  --secondary-foreground: var(--mb-text);
+  --muted: var(--mb-surface-sunken);
+  --muted-foreground: var(--mb-text-muted);
+  --accent: var(--mb-accent-tint);
+  --accent-foreground: var(--mb-accent-text);
+  --destructive: var(--mb-danger);
+  --destructive-foreground: var(--mb-text-on-accent);
+  --success: var(--mb-success);
+  --warning: var(--mb-warning);
+  --border: var(--mb-line);
+  --input: var(--mb-line-strong);
+  --ring: var(--mb-focus);
+  --radius: var(--mb-radius-lg);
+}

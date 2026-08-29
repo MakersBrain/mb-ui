@@ -1,23 +1,24 @@
 {
-	"name": "@makersbrain/brand",
+	"name": "@makersbrain/ui",
 	"version": "0.1.0",
 	"description": "The MakersBrain visual identity: colour and type tokens, the component layer, the weave mark in every cut, and the Svelte components that render it.",
-	"license": "UNLICENSED",
+	"license": "SEE LICENSE IN LICENSE.md",
 	"private": false,
 	"type": "module",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/MakersBrain/brand.git"
+		"url": "git+https://github.com/MakersBrain/mb-ui.git"
 	},
-	"homepage": "https://github.com/MakersBrain/brand#readme",
+	"homepage": "https://github.com/MakersBrain/mb-ui#readme",
 	"bugs": {
-		"url": "https://github.com/MakersBrain/brand/issues"
+		"url": "https://github.com/MakersBrain/mb-ui/issues"
 	},
 	"publishConfig": {
 		"registry": "https://npm.pkg.github.com"
 	},
 	"sideEffects": [
-		"*.css"
+		"**/*.css",
+		"**/*.scss"
 	],
 	"svelte": "./src/svelte/index.js",
 	"types": "./src/marks.d.ts",
@@ -27,7 +28,11 @@
 			"default": "./src/marks.js"
 		},
 		"./tokens.css": "./src/tokens.css",
+		"./fonts.css": "./src/fonts.css",
+		"./base.css": "./src/base.css",
 		"./ui.css": "./src/ui.css",
+		"./adapters/shadcn.css": "./src/adapters/shadcn.css",
+		"./adapters/odoo.scss": "./src/adapters/odoo.scss",
 		"./svelte": {
 			"types": "./src/svelte/index.d.ts",
 			"svelte": "./src/svelte/index.js",
@@ -41,15 +46,18 @@
 	"files": [
 		"src",
 		"fonts",
+		"LICENSE.md",
 		"README.md"
 	],
 	"scripts": {
-		"build": "python3 build/build-logo.py --skip-wordmark && python3 build/build-pages.py",
+		"build": "python3 build/build-logo.py --skip-wordmark && node scripts/build-odoo-scss.mjs && python3 build/build-pages.py",
 		"build:logo": "python3 build/build-logo.py --skip-wordmark",
 		"build:pages": "python3 build/build-pages.py",
-		"check": "python3 build/build-logo.py --skip-wordmark --check --no-raster && svelte-check --threshold error",
+		"check": "python3 build/build-logo.py --skip-wordmark --check --no-raster && node scripts/build-odoo-scss.mjs --check && svelte-check --threshold error",
 		"check:generated": "python3 build/build-logo.py --skip-wordmark --check --no-raster",
-		"check:types": "svelte-check --threshold error"
+		"check:types": "svelte-check --threshold error",
+		"build:odoo": "node scripts/build-odoo-scss.mjs",
+		"check:odoo": "node scripts/build-odoo-scss.mjs --check"
 	},
 	"peerDependencies": {
 		"svelte": "^5.0.0"

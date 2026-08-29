@@ -349,9 +349,10 @@ def main() -> int:
 def rasterise() -> None:
     """Emit the PNGs that no SVG-only pipeline can supply.
 
-    Favicons because some clients still refuse SVG, and the org avatar because
-    GitHub has no API for it: avatars are upload-only through the web UI, so
-    this produces the file a human then drags into the form.
+    Favicons because some clients still refuse SVG, and the org avatar and OAuth
+    logo because neither GitHub nor the Google Cloud console has an API for
+    them: both are upload-only through a web UI, so this produces the file a
+    human then drags into the form.
     """
     if not shutil.which("inkscape"):
         print("inkscape not found; skipping the PNG step", file=sys.stderr)
@@ -387,6 +388,27 @@ def rasterise() -> None:
             ["magick", "-size", f"{canvas}x{canvas}", f"xc:{PAPER_GROUND}",
              str(mark), "-gravity", "center", "-composite",
              str(LOGO / "avatar-1024.png")],
+            check=True, capture_output=True,
+        )
+
+    # The OAuth consent screen. Google fixes the logo at 120x120 and masks it to
+    # a circle, so this is the chop -- a filled tile survives a circle mask where
+    # an open mark floats -- flattened onto the cream ground so the rounded
+    # corners carry a colour rather than transparency, which some Google
+    # surfaces render as black. The chop insets the mark to 62% of the tile,
+    # which clears the inscribed circle at every point.
+    with tempfile.TemporaryDirectory() as tmp:
+        tile = pathlib.Path(tmp) / "tile.png"
+        subprocess.run(
+            ["inkscape", "--export-type=png",
+             "--export-width=120", "--export-height=120",
+             f"--export-filename={tile}", str(LOGO / "chop.svg")],
+            check=True, capture_output=True,
+        )
+        subprocess.run(
+            ["magick", "-size", "120x120", f"xc:{PAPER_GROUND}",
+             str(tile), "-gravity", "center", "-composite",
+             "-alpha", "off", str(LOGO / "oauth-120.png")],
             check=True, capture_output=True,
         )
 

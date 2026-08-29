@@ -9,7 +9,7 @@
 	 * a single-colour context without three separate assets -- an `<img>` would
 	 * need one file per context.
 	 *
-	 * `--mb-brand` comes from `@makersbrain/brand/tokens.css`, which re-points it
+	 * `--mb-brand` comes from `@makersbrain/ui/tokens.css`, which re-points it
 	 * to clay-400 on a dark ground. Import that stylesheet, or set the property
 	 * yourself, or pass `mono` to opt out of the second colour entirely.
 	 */

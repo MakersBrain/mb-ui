@@ -1,4 +1,4 @@
-# @makersbrain/brand
+# @makersbrain/ui
 
 The MakersBrain visual identity, as one installable package: the colour and type
 tokens, the component layer built on them, the weave mark in every cut a surface
@@ -28,7 +28,7 @@ consuming repository:
 A token with `read:packages` is enough. Then:
 
 ```sh
-npm install @makersbrain/brand
+npm install @makersbrain/ui
 ```
 
 ## Use
@@ -38,23 +38,35 @@ directly -- CSS as CSS, SVG as SVG, components as Svelte source that the
 consumer's own compiler handles. Nothing here has to be built before it can be
 imported, and nothing here has an opinion about your bundler.
 
-### Tokens and components
+### Foundations and components
 
 ```css
-@import '@makersbrain/brand/tokens.css';
-@import '@makersbrain/brand/ui.css';    /* optional: the component layer */
+@import '@makersbrain/ui/tokens.css';
+@import '@makersbrain/ui/fonts.css'; /* optional self-hosted faces */
+@import '@makersbrain/ui/base.css';  /* reset, type, focus, motion */
+@import '@makersbrain/ui/ui.css';    /* optional primitives; composes base.css */
 ```
 
 `tokens.css` is the whole system -- colour, type, spacing, radius, elevation --
-and `ui.css` is the component layer built on it. Take the first without the
-second if the surface has its own components; never take the second without the
-first, which is a stylesheet of `var()` calls resolving to nothing.
+and `ui.css` is the domain-neutral component layer built on it. Take the first
+without the second if the surface has its own components; never take the second
+without the first, which is a stylesheet of `var()` calls resolving to nothing.
+Product workflows and layouts stay in their product repository.
+
+Framework bridges are explicit and optional:
+
+```css
+@import '@makersbrain/ui/adapters/shadcn.css';
+```
+
+The generated `@makersbrain/ui/adapters/odoo.scss` is the exact SCSS projection
+used to keep Odoo's compile-time variables aligned with the CSS tokens.
 
 ### The mark
 
 ```svelte
 <script>
-  import { BrandLockup } from '@makersbrain/brand/svelte';
+  import { BrandLockup } from '@makersbrain/ui/svelte';
 </script>
 
 <BrandLockup product="Catalogue" href="/" />
@@ -67,13 +79,13 @@ is why it needs no dark-mode variant: import `tokens.css` and it adapts.
 For anything that is not Svelte, the paths themselves are exported:
 
 ```js
-import { WEAVE, ONE_BIT, WORDMARK } from '@makersbrain/brand';
+import { WEAVE, ONE_BIT, WORDMARK } from '@makersbrain/ui';
 ```
 
 And the flat assets are addressable:
 
 ```js
-import favicon from '@makersbrain/brand/logo/chop.svg';
+import favicon from '@makersbrain/ui/logo/chop.svg';
 ```
 
 ## The mark
@@ -96,6 +108,7 @@ something about the software: two things fitting together.
 | `favicon.svg`, `favicon-{16,32,48,180,512}.png` | Browser and home screen. |
 | `chop-{16,32,48,180,512}.png` | The catalogue tools' favicon. |
 | `avatar-1024.png` | GitHub org avatar, and any other square profile slot. |
+| `oauth-120.png` | Google OAuth consent screen. 120x120, opaque. |
 
 All of it regenerates from three path constants in
 [`build/build-logo.py`](build/build-logo.py):
@@ -134,6 +147,12 @@ and the painted ground stops the mark inheriting whatever sits behind it. It has
 to be uploaded by hand -- GitHub has no API for organization avatars, so this is
 upload-only at `https://github.com/organizations/MakersBrain/settings/profile`.
 
+`oauth-120.png` is the chop flattened onto the cream ground. Google fixes the
+consent-screen logo at 120x120 and masks it to a circle, so it is the filled
+tile rather than the open mark, and it carries no alpha channel -- some Google
+surfaces render a transparent corner as black. It is uploaded by hand under
+APIs & Services -> OAuth consent screen -> Branding in the Google Cloud console.
+
 ## Two rules that are easy to get wrong
 
 - **Never declare a colour whose only definition sits inside a media query or a
@@ -164,7 +183,7 @@ All three are OFL, so self-hosting is fine. Serve the `latin` and `latin-ext`
 subsets both; a French interface on a latin-only subset falls back mid-word.
 
 The `latin` and `latin-ext` woff2 subsets of Bitter and IBM Plex Sans ship with
-the package, at `@makersbrain/brand/fonts/*.woff2`. An app is free to deliver
+the package, at `@makersbrain/ui/fonts/*.woff2`. An app is free to deliver
 them through fontsource or its own pipeline instead -- but a page that inlines
 its fonts to stay self-contained (the landing page, the two reference pages
 below) needs the bytes from somewhere, and sourcing them per-consumer is how two
@@ -204,15 +223,22 @@ Publishing is triggered by a tag, so a release is a deliberate act with a name
 rather than a side effect of merging:
 
 ```sh
-npm version minor        # bumps package.json and tags
+npm version minor --tag-version-prefix=ui-v
 git push --follow-tags
 ```
 
 `.github/workflows/publish.yml` re-runs every CI gate, refuses to publish if the
-tag does not match the version in `package.json`, and publishes with the
+`ui-v*` tag does not match the version in `package.json`, and publishes with the
 workflow's own `GITHUB_TOKEN` -- no long-lived npm credential exists anywhere.
 The same workflow can be dispatched manually with `dry_run` to pack and validate
 without publishing.
 
 To move to npmjs.com instead, change `registry-url` in the workflow and
 `publishConfig.registry` in `package.json`, and supply an `NPM_TOKEN` secret.
+
+## License and brand use
+
+Code, styles, components, scripts, and documentation are MIT licensed. The
+MakersBrain name and logo assets remain reserved brand assets, and the bundled
+fonts retain their upstream OFL terms. See [LICENSE.md](LICENSE.md) for the exact
+boundary.
