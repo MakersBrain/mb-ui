@@ -94,8 +94,25 @@
 	margin-bottom: var(--mb-space-5);
 }
 
+.mb-page-identity {
+	min-width: 0;
+}
+
+.mb-page-back {
+	display: inline-block;
+	margin-bottom: 0.25rem;
+	font-size: var(--mb-text-small);
+	color: var(--mb-text-muted);
+	text-decoration: none;
+}
+.mb-page-back:hover {
+	color: var(--mb-text);
+	text-decoration: underline;
+}
+
 .mb-page-title {
 	margin: 0;
+	outline-offset: 4px;
 	font-family: var(--mb-font-display);
 	font-size: var(--mb-text-h2);
 	font-weight: 600;

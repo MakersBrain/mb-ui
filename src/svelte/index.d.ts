@@ -1,9 +1,5 @@
 import type { Component, Snippet } from 'svelte';
-import type {
-	HTMLAnchorAttributes,
-	HTMLAttributes,
-	SVGAttributes
-} from 'svelte/elements';
+import type { HTMLAttributes, SVGAttributes } from 'svelte/elements';
 
 export interface BrandMarkProps extends Omit<SVGAttributes<SVGSVGElement>, 'title'> {
 	/** Any CSS length. Defaults to `1.35em`, so the mark scales with its label. */
@@ -72,6 +68,9 @@ export interface PageHeaderProps extends HTMLAttributes<HTMLElement> {
 	title: string;
 	eyebrow?: string;
 	description?: string;
+	/** Where the page above this one is. Rendered as a quiet link over the title. */
+	backHref?: string;
+	backLabel?: string;
 	actions?: Snippet;
 	children?: Snippet;
 }
